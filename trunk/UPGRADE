@@ -1,0 +1,66 @@
+Upgrading from 1.1.3pl1 to ?.?.?
+
+init.sql: The planworld user now gets create privs to create sequences
+sequences also cause a slight problem: the current id for userid_seq must be the highest userid (in mysql, at least)
+
+Tables added: archive, timezones, snitchtracker, pw_groups
+
+A script will be provided that automatically upgrades your
+installation (adds fields and updates properties).  SQL/upgrade.sql
+
+To convert old archive entries, use upgrade.php
+
+1) < upgrade.sql
+2) -f < tables.sql
+
+3) < timezones.sql
+
+n=select max(id) from users;
+
+CREATE TABLE userid_seq (
+  id int(10) unsigned NOT NULL auto_increment,
+  PRIMARY KEY  (id)
+) TYPE=MyISAM;
+
+CREATE TABLE groupid_seq (
+  id int(10) unsigned NOT NULL auto_increment,
+  PRIMARY KEY  (id)
+) TYPE=MyISAM;
+
+INSERT INTO userid_seq VALUES (n);
+INSERT INTO groupid_seq VALUES (1);
+
+INSERT INTO pw_groups VALUES (1,0,'People',0);
+
+UPDATE news SET live='Y';
+UPDATE cookies SET approved='Y';
+
+4) upgrade.php
+5) tar zcf archive.tar.gz archives/ && rm -rf archives
+6)
+UPDATE plans SET content=CONCAT('<pre>',content,'</pre>');
+
+-----
+
+Upgrading from 2.0.0 to 2.1.0
+
+CREATE TABLE cookies_seq (
+  id int(10) unsigned NOT NULL auto_increment,
+  PRIMARY KEY  (id)
+) TYPE=MyISAM;
+
+n = SELECT MAX(id) FROM cookies;
+INSERT INTO cookies_seq VALUES (n+1);
+
+add PHP.net theme:
+INSERT INTO themes VALUES (10,1,'PHP.net','php.net','Matt Gordon','magordon@amherst.edu');
+
+add an index on archive.pub
+CREATE INDEX pub ON archive(pub);
+
+Upgrading from 2.1.0 to 2.1.5
+Add send table
+alter table plans modify column content mediumtext;
+alter table archive modify column content mediumtext;
+alter table users add column archive_size integer not null after archive;
+alter table users add column archive_size_pub integer not null after archive;

@@ -1,0 +1,9 @@
+This skin contains very limited functionality and exists solely as
+proof of concept.  It is based on the Grinnell Plans system
+(www.math.grinnell.edu/~heckr/Finger/), although only parts are
+implemented here (no preferences, autofinger, etc., although these
+could be added using get/setPreference() and the planwatch code).  For
+more information, please visit their website or email
+plans@grinnell.edu.
+
+$Id: README,v 1.1 2001/07/02 18:33:48 seth Exp $
