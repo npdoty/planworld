@@ -1,229 +1,182 @@
-PLANWORLD
+== Welcome to Rails
 
-Planworld is great a number of things to different people.  It
-provides a means for people to share information about themselves,
-their schedules, their diaries, or anything else they desire.  Plans
-are often used for conversation (through the use of Snitch and Snoop),
-providing a complex threaded environment with structure provided
-primarily by planworld's users.
+Rails is a web-application and persistence framework that includes everything
+needed to create database-backed web-applications according to the
+Model-View-Control pattern of separation. This pattern splits the view (also
+called the presentation) into "dumb" templates that are primarily responsible
+for inserting pre-built data in between HTML tags. The model contains the
+"smart" domain objects (such as Account, Product, Person, Post) that holds all
+the business logic and knows how to persist themselves to a database. The
+controller handles the incoming requests (such as Save New Account, Update
+Product, Show Post) by manipulating the model and directing data to the view.
 
-Planworld can be almost anything; it's use is limited only by the
-imaginations of those who use it.  It is unlikely that two planworlds
-will ever be alike; their uses will vary depending on the needs,
-desires, and alternative communication methods that users have at
-their disposal.
+In Rails, the model is handled by what's called an object-relational mapping
+layer entitled Active Record. This layer allows you to present the data from
+database rows as objects and embellish these data objects with business logic
+methods. You can read more about Active Record in
+link:files/vendor/rails/activerecord/README.html.
 
-Planworld has been designed with the intention of easily allowing
-users to share their plans with others, within their own
-planworld-group or with the public at large.  If users desire privacy,
-they may disable world-accessibility through the Preferences page.
-This will limit viewing of their plan to others in their own
-community.
+The controller and view are handled by the Action Pack, which handles both
+layers by its two parts: Action View and Action Controller. These two layers
+are bundled in a single package due to their heavy interdependence. This is
+unlike the relationship between the Active Record and Action Pack that is much
+more separate. Each of these packages can be used independently outside of
+Rails.  You can read more about Action Pack in
+link:files/vendor/rails/actionpack/README.html.
 
-If you are interesting in assisting in the development of planworld or
-have any questions, please contact us at <planworld@note.amherst.edu>.
-We welcome suggestions, comments, bug reports, new skins, and
-especially patches.
 
-Requirements:
+== Getting started
 
-- Apache 1.3.6+ (AllowOverride All must be set for the directory that
-  planworld was installed in for the .htaccess files to work;
-  alternatively, add the directives in <planworld_root>/.htaccess and
-  <planworld_root/backend/.htaccess to a <Directory> or <Location>
-  directive in your httpd.conf)
+1. At the command prompt, start a new rails application using the rails command
+   and your application name. Ex: rails myapp
+   (If you've downloaded rails in a complete tgz or zip, this step is already done)
+2. Change directory into myapp and start the web server: <tt>script/server</tt> (run with --help for options)
+3. Go to http://localhost:3000/ and get "Welcome aboard: You’re riding the Rails!"
+4. Follow the guidelines to start developing your application
 
-- PHP 4.1.0 or higher (tested with PHP 4.1.0+) compiled with mysql, xml,
-  zlib, and xml-rpc support (--with-mysql --with-xml --with-zlib
-  --with-xmlrpc).
 
-  In order for planworld to work properly, the querystring delimiter
-  MUST include ';' To do this, uncomment these lines in php.ini (in
-  /usr/local/lib/):
-    arg_separator.output = "&amp;"
-    arg_separator.input = ";&"
+== Web Servers
 
-  If you would like to enable output compression (to reduce bandwidth
-  use or to provide better service to dial-up users), change the
-  value of zlib.output_compression to 'On':
-    zlib.output_compression = On
+By default, Rails will try to use Mongrel and lighttpd if they are installed, otherwise
+Rails will use the WEBrick, the webserver that ships with Ruby. When you run script/server,
+Rails will check if Mongrel exists, then lighttpd and finally fall back to WEBrick. This ensures
+that you can always get up and running quickly.
 
-  register_globals, which allows POST/GET variables to be accessed by
-  $var (vs. $HTTP_POST_VARS['var'], does not need to (and should not)
-  be enabled.  You needn't do anything about this, as it is disabled
-  in the .htaccess file.
+Mongrel is a Ruby-based webserver with a C-component (which requires compilation) that is
+suitable for development and deployment of Rails applications. If you have Ruby Gems installed,
+getting up and running with mongrel is as easy as: <tt>gem install mongrel</tt>.
+More info at: http://mongrel.rubyforge.org
 
-- MySQL 3.23.x or higher OR PostgreSQL 7.1 or higher
-  If you choose to use PostgreSQL, usernames will be case-sensitive
-  (i.e., 'jdoe' is not the same as 'JDoe'), unlike MySQL.
+If Mongrel is not installed, Rails will look for lighttpd. It's considerably faster than
+Mongrel and WEBrick and also suited for production use, but requires additional
+installation and currently only works well on OS X/Unix (Windows users are encouraged
+to start with Mongrel). We recommend version 1.4.11 and higher. You can download it from
+http://www.lighttpd.net.
 
-Installation notes:
+And finally, if neither Mongrel or lighttpd are installed, Rails will use the built-in Ruby
+web server, WEBrick. WEBrick is a small Ruby web server suitable for development, but not
+for production.
 
-This package includes an experimental finger daemon (for MySQL only)
-that allows finger access to your planworld node.  To configure it for
-your system, ensure that the database connection information in
-ffingerd.c is correct before compilation.  After compilation (make),
-you will need to manually copy it over the existing finger as root
-(often /usr/sbin/in.fingerd) and make sure that finger is enabled in
-your inetd.conf or xinetd.conf (make backups first).  The version
-provided has been in use at Amherst for over a year.  Due to excessive
-use early on, we were forced to replace inetd with xinetd (which more
-gracefully handles large numbers of connections without shutting
-down).  Your mileage may vary depending on your volume of use.
+But of course its also possible to run Rails on any platform that supports FCGI.
+Apache, LiteSpeed, IIS are just a few. For more information on FCGI,
+please visit: http://wiki.rubyonrails.com/rails/pages/FastCGI
 
-Installation:
 
-1. Uncompress the tarball
-% cd <document root>
-% tar zxf /path/to/planworld-version.tar.gz
+== Debugging Rails
 
-2. change into the planworld directory
-% cd planworld
+Have "tail -f" commands running on the server.log and development.log. Rails will
+automatically display debugging and runtime information to these files. Debugging
+info will also be shown in the browser on requests from 127.0.0.1.
 
-3. create the planworld database
-% mysqladmin -uroot -p create planworld
 
-4. create planworld tables
-% mysql -uroot -p planworld < SQL/tables.sql
+== Breakpoints
 
-5. create a planworld user, initialize tables
-% mysql -uroot -p planworld < SQL/init.sql
+Breakpoint support is available through the script/breakpointer client. This
+means that you can break out of execution at any point in the code, investigate
+and change the model, AND then resume execution! Example:
 
-6. fill the cookie jar
-% mysql -uroot -p planworld < SQL/cookies.sql
-TODO: either create a script that does this, or re-create cookies.sql
-to add an id sequence
+  class WeblogController < ActionController::Base
+    def index
+      @posts = Post.find(:all)
+      breakpoint "Breaking out from the list"
+    end
+  end
 
-7. set up timezones
-% mysql -uroot -p planworld < SQL/timezone.sql
+So the controller will accept the action, run the first line, then present you
+with a IRB prompt in the breakpointer window. Here you can do things like:
 
-8. configure planworld settings
-% cp config.php.dist config.php
-edit config.php
+Executing breakpoint "Breaking out from the list" at .../webrick_server.rb:16 in 'breakpoint'
 
-9. set up authentication
-% cp auth.php.dist auth.php
+  >> @posts.inspect
+  => "[#<Post:0x14a6be8 @attributes={\"title\"=>nil, \"body\"=>nil, \"id\"=>\"1\"}>,
+       #<Post:0x14a6620 @attributes={\"title\"=>\"Rails you know!\", \"body\"=>\"Only ten..\", \"id\"=>\"2\"}>]"
+  >> @posts.first.title = "hello from a breakpoint"
+  => "hello from a breakpoint"
 
-10. add backend/cache.php as a cron job set to run every 10 minutes or
-   however often you deem appropriate (this script caches last update
-   and last login times locally to lower the number of requests to
-   other nodes' backends)
+...and even better is that you can examine how your runtime objects actually work:
 
-10a. (if php is compiled as a CGI)
-in your crontab:
-*/10 * * * * /path/to/planworld/backend/cache.php
+  >> f = @posts.first
+  => #<Post:0x13630c4 @attributes={"title"=>nil, "body"=>nil, "id"=>"1"}>
+  >> f.
+  Display all 152 possibilities? (y or n)
 
-10b. (if php is not compiled as a CGI)
-in your crontab: 
-*/10 * * * * lynx -source http://example.com/planworld/backend/cache.php > /dev/null
+Finally, when you're ready to resume execution, you press CTRL-D
 
-11. load information on additional planworld nodes into mysql
 
-11a. (if php is compiled as a CGI)
-% ./backend/getnodes.php | mysql -uplanworld -p planworld
+== Console
 
-11b. (if php is not compiled as a CGI)
-% lynx -source http://example.com/planworld/backend/getnodes.php | \
-  mysql -uplanworld -p planworld
+You can interact with the domain model by starting the console through <tt>script/console</tt>.
+Here you'll have all parts of the application configured, just like it is when the
+application is running. You can inspect domain models, change values, and save to the
+database. Starting the script without arguments will launch it in the development environment.
+Passing an argument will specify a different environment, like <tt>script/console production</tt>.
 
-12. add yourself to the node list
-% echo "INSERT INTO nodes (name, hostname, path, port) VALUES
-  ('yourname', 'example.com', '/planworld/backend/', 80);" | mysql
-  -uplanworld -p planworld
+To reload your controllers and models after launching the console run <tt>reload!</tt>
 
-13. Contact <planworld@note.amherst.edu> with appropriate node
-    information (name, hostname, port, and path to the backend) so
-    that we may add you to the node list.  In the future there may be
-    either a web-form or provided scripts to do this.  However, by
-    notifying us, we will be sure to inform you of any changes in the
-    node list, the backend, or planworld as a whole.
+To reload your controllers and models after launching the console run <tt>reload!</tt>
 
-In addition, you will probably want to tailor the default skin to fit
-your needs.  This will likely involve modifying outline.inc,
-trailer.inc, about.inc, edit.tpl, preferences.inc, and
-faq.inc.  ('tgerety,' the user that we commonly use as an example
-user, is Tom Gerety, the president of Amherst College.  Unfortunately,
-he does not have a plan.)  For testing, however, you will probably not
-need to change any of the files (including config.php and auth.php
-after copying them).
 
-Authentication:
 
-A very simple login script is provided for your use (auth.php.dist).
-It is invoked by prepend.php at the beginning of each page.  As-is, it
-does not check the validity of any given user, thus you will need to
-modify it in order to tie it into your existing authentication /
-authorization scheme.
+== Description of contents
 
-On NOTE's systems at Amherst, we use an HTTP authentication layer
-written in PHP that interacts with the college's mail servers using
-IMAP.  In the future, we hope to adapt it to use a PAM module to
-interact with the college's NT domain controllers as well as cURL to
-interact with an external alumni mail server accessible by HTTP only.
+app
+  Holds all the code that's specific to this particular application.
 
-By not providing any specific authentication method, we leave you free
-to implement your own or tie it into an existing system.  You are
-limited by your own imagination and skill, but we recommend keeping
-track of users with a database (such as MySQL) or an LDAP server (such
-as OpenLDAP).
+app/controllers
+  Holds controllers that should be named like weblogs_controller.rb for
+  automated URL mapping. All controllers should descend from ApplicationController
+  which itself descends from ActionController::Base.
 
-A caveat: if your authentication system creates users (which is
-probably will), make sure that it adds user entries for planworld to
-use with the User::addUser() method.  This ensures that initialization
-is done properly.
+app/models
+  Holds models that should be named like post.rb.
+  Most models will descend from ActiveRecord::Base.
 
-Themes:
+app/views
+  Holds the template files for the view that should be named like
+  weblogs/index.rhtml for the WeblogsController#index action. All views use eRuby
+  syntax.
 
-Themes are stylesheets that are included in each planworld page load.
-Themes reside in layout/1/themes/ Furthermore, each has its own
-directory, e.g. 'metal', 'pastis' All necessary files for a theme
-should be located in its directory.  The stylesheet should be named
-'styles.css'.  If a different planworld logo is desired, it should be
-named 'planworld.gif'.  If you want further CSS positioning, etc., you
-may also have a file called extras.inc which gets included in each
-document inside the <body>.  For example, some people like floating
-graphics.
+app/views/layouts
+  Holds the template files for layouts to be used with views. This models the common
+  header/footer method of wrapping views. In your views, define a layout using the
+  <tt>layout :default</tt> and create a file named default.rhtml. Inside default.rhtml,
+  call <% yield %> to render the view using this layout.
 
-If your theme requires other images, such as backgrounds, etc., these
-should be included in the theme's directory as well...but you'll need
-to reference them properly in the stylesheet. e.g. 'background-image:
-url('layout/1/themes/yourThemeName/yourBGimage.gif')
+app/helpers
+  Holds view helpers that should be named like weblogs_helper.rb. These are generated
+  for you automatically when using script/generate for controllers. Helpers can be used to
+  wrap functionality for your views into methods.
 
-To make the theme active, you need to add an entry to the 'themes'
-table in the db.  The fields are as follows:
-  id - a unique id for the skin.
-  skin_id - for the future when we include alternate skins.  For now
-            just leave it as '1'.
-  name - The name of the theme as you want it to appear in the list
-         of themes users may choose from.
-  dir - the name of the directory that the theme files lie in. This
-        is relative to layout/1/themes/ so if your theme is 'metal'
-        the entry in this field should just be 'metal'
-  author_name - who designed it
-  author_contact - how the designer can be reached.
+config
+  Configuration files for the Rails environment, the routing map, the database, and other dependencies.
 
-Of course the best way to make a new theme is look at the others and
-just follow their lead.
+components
+  Self-contained mini-applications that can bundle together controllers, models, and views.
 
-Terminology:
+db
+  Contains the database schema in schema.rb.  db/migrate contains all
+  the sequence of Migrations for your schema.
 
-Many of the terms used in planworld (snitch, planwatch, fixplan) are
-holdovers from the days when plans existed solely on our VMS system.
-They are left in place as reminders here at Amherst.  As with anything
-else, you may change the terminology by modifying the existing skin or
-by creating a new one.
+doc
+  This directory is where your application documentation will be stored when generated
+  using <tt>rake doc:app</tt>
 
-History:
+lib
+  Application specific libraries. Basically, any kind of custom code that doesn't
+  belong under controllers, models, or helpers. This directory is in the load path.
 
-A partial history as well as other interesting tidbits can be found in
-the 'About' section of a standard planworld installation.  It is
-interesting to note that since we released planworld to the Amherst
-College community, we discovered a similar system at Grinnell
-(www.math.grin.edu/~heckr/Finger/).  During development, we drew
-inspiration from planwatch.org, a similar community in the Pensacola,
-FL area developed by Josh Davidson.  Planworld.net was started by the
-author (using this software) as a means for friends of Amherst
-students to get in on plans.  If you know of others, please let us
-know.
+public
+  The directory available for the web server. Contains subdirectories for images, stylesheets,
+  and javascripts. Also contains the dispatchers and the default HTML files. This should be
+  set as the DOCUMENT_ROOT of your web server.
 
-$Id: README,v 1.14.4.2 2003/03/15 21:10:07 seth Exp $
+script
+  Helper scripts for automation and generation.
+
+test
+  Unit and functional tests along with fixtures. When using the script/generate scripts, template
+  test files will be generated for you and placed in this directory.
+
+vendor
+  External libraries that the application depends on. Also includes the plugins subdirectory.
+  This directory is in the load path.
