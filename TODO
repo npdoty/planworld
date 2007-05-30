@@ -1,0 +1,139 @@
+TODO
+
+* => required before a public release
+
+CURRENT WORK:
+-> moving cookie addition logic to cookie_add.tpl and trashing cookieadd.php
+-> rework snoop to squash bugs and make more weblog-like
+-> clean up directory structure (like HEAD)
+-> move this branch to HEAD (and HEAD to SMARTY branch)
+
+archive.php is needed for the upgrade script
+
+DOUBLE CHECK BEFORE RELEASING:
+- check if logout works
+
+NEW FEATURES
+- "widget" id for stylesheet testing (contains all widgets and combinations used so that it can be saved, loaded into dreamweaver, and new styles created)
+- sort 'whois' into groups of people starting with first letters (control size of page created)
+- rebuild / rethink base skin (templates are getting ugly) (see SMARTY branch)
+- bios / personal information (birthday, etc.)
+- common header / footer for journal-style plans
+- add timer so a hidden <!-- .. --> field can show how long it took to render a page (helps debugging)
+- perma-archive linking
+- remote archive viewing
+- downloading of archives as tar files
+- geographic viewing of alumni (plot on map)
+- 6 degrees of snoop
+- 6 degrees of planwatches (potentially huge)
+- SPY (notify people when someone last logged on) - can be done via email once profiles are implemented
+- store last IP address
+- RSS export (borrow from planworld.net)
+- RSS transfer of plans and archive entries
+- make work without prepend.php
+
+- site cloud-like functionality (check when a website was updated; hourly / user configurable)
+- (personal) archive searching (requires content to become a full-text field OR archives to be stored in an XML db)
+- filters (custom markup)
+- poll filter
+- plan exposition (username.planworld.net, planworld.net/username); use as a webpage
+- "mark as new" ?
+- planwatch look (planlook.php) normal & simple (for avantgo users)
+- knowledge management features (keyword searchable) - nodes, perhaps with individual group controls built in
+- skins (start w/ jmkaldor's)
+- re-think preferences page (wrt skins and themes; the select boxes are too big for the left-hand side if more information is included (author, browsers supported, etc))
+- Blogger API (or some similar weblog API: wasabii?)
+- rich text widgets
+- xmlrpc calls for complete plan information (lastlogin, lastupdate, and plantext combined)
+- context help system (clicking on a ? brings up a window with appropriate help)
+
+BUG-FIXES / CLEANUP
+- archive modification resets custom sorting (need a generic direction icon for this)
+- * getnodes.php still uses PEAR xml-rpc (does anything else?)
+- * script to add the cookies rather than a dump to help w/ sequences
+- common error include (not authorized, etc.)
+- eliminate common code between User::displayPlan, User::setPlan, and User::repostPlan
+- * remove Amherst-specific code
+- * split init.sql into pgsql and mysql versions (to account for db user addition differences)
+- * OR create a pair of scripts that take care of creating all database stuff (eliminate specific sections for postgres vs. mysql in the README)
+- _addslashification (and _stripslashification)
+
+- un-hardcode skins in User class
+- get a phpdoc tool and see how it does (clean up commenting once a verdict has been reached)
+- make functions (Online::, Snoop::) handle string, int, and object representations of users
+- move theme preferences to Preferences table (from user table)
+- make finger client work with PostgreSQL (rewrite in Java?)
+
+ADMINISTRIVIA
+- create Makefiles (alt: build.xml) for various things (dist, for example, to package up the source)
+- database cleanup script - delete users who are not attached to anything:
+<queries with OUTER JOINs, perhaps>
+- stress test for auto-linking code
+- create user manager
+- * database migration tool (upgrade.php)
+- news table should contain an author field (3.0)
+
+Future Ideas
+- plan-love sort of thing (using snitch, snoop, planwatch pairings w/
+  gd or flash)
+- reverse snitch (keep track of who you finger and how often) ???
+- better auth error messages (new auth system? - Amherst only)
+- redirect logout.php elsewhere and provide better instructions
+- username search
+- popularity index (for ordering planwatches)
+- significance index (percent of plan changed, for ordering
+  planwatches) similar_text
+- graphs for stats page (%, number of users vs. logged-in users
+  vs. users w/ plans)
+- user profiles
+
+3.x
+- Blogging (export) support
+- reading of other xml-rpc syndicated content
+- spell checking (pspell)
+- better word-wrapping (ignore tags when calculating length)
+- skins using template engine (smarty)
+- xml export
+- referers (with percentages)
+- number of updates / user
+- Palm support (custom app written in VB/Appforge)
+- configurable 12/24 hour clock and date format
+- biographies / user profiles (store in ldap?)
+- significant hits (if snitch registered): 1,000, 10,000, etc.
+- threading
+- pose a question - special markup pulled out and displayed on a special page w/ others. people can respond with snoop
+
+UI considerations: sorting directional button (instead of reversing the direction each time)
+
+KNOWN PROBLEMS
+- ORDER BY RAND() doesn't work in mysql before 3.23
+
+OTHER IDEAS
+
+- add explanation to the faq
+- link from preferences to planwatch editing
+- referer logs (how are people getting to your plan? via a link on
+  another plan, or through the fingerbox/typing in id=yourname at the
+  top
+
+FUTURE
+
+. custom headers / footers?
+. add javascript descriptions for links (display in the status bar)
+. tab indexes and function keys to make it more accessible ?
+. comments / guestbook on someone's plan (readable only by owner)
+
+> have you guys thought about posting more statistical info?  Perhaps
+> starting with a "number of times you have updated your plan," and
+> branching into graphs of when planworld as a whole sees more activity
+> (hits/time, fingers/time, updates/time, one could even go crazy and plot
+> (fingers/update)/time, for a measure of when people were procrastinating
+> more).  I suppose it would take a bit of programming to produce what
+> are, ultimately, frivilous graphics. But it'd be neat.
+
+(analog?  webtrends?  borrow stuff from mrtg?  other log analysis tools?)
+
+extract information from log files using grep, provide in csv / xml
+some of this exists in pulse.php and pulse_g.php
+
+--- ---

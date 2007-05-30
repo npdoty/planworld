@@ -1,0 +1,7 @@
+In this directory you will find a perl script to convert cookie data
+files (such as fortune.txt) into appropriate SQL statements for
+insertion into the planworld cookie system (such as SQL/cookies.sql).
+fortune.txt is taken from Amherst's VMS system; you can easily
+substitute one of your own choosing and import that instead.
+
+$Id: README,v 1.1 2001/07/02 18:33:48 seth Exp $

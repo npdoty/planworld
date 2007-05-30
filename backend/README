@@ -1,0 +1,75 @@
+How to access the XML-RPC backend:
+
+Planworld functions are exposed for external accessibility through the
+use of an XML-RPC gateway.  This allows clients to be written in any
+language (see xmlrpc.org for a list of implementations and more
+information).  The following functions are currently defined (from the
+server point of view):
+
+planworld.api.version()
+planworld.plan.getContent()
+planworld.user.getPlan()
+planworld.user.getLastLogin()
+planworld.user.getLastUpdate()
+planworld.user.list()
+planworld.user.online()
+planworld.nodes.list()
+planworld.snoop.add()
+planworld.snoop.remove()
+planworld.snoop.clear()
+planworld.stats.getNumUsers()
+planworld.stats.getNumPlans()
+planworld.stats.getNumSnitchRegistered()
+planworld.stats.getNumViews()
+planworld.stats.getNumHits()
+
+
+planworld.api.version ()
+	returns API version in use
+planworld.plan.getContent ( string localuser, string remoteuser, boolean snitch )
+	returns base64 plantext
+planworld.user.getPlan ( string localuser, string remoteuser, boolean snitch )
+	returns base64 plantext
+planworld.user.getLastLogin ( array|string username )
+	returns struct|int lastlogin (EDT unix timestamp)
+planworld.user.getLastUpdate ( array|string username )
+	returns struct|int lastupdate (EDT unix timestamp)
+planworld.user.list ( [string 'plans'] )
+	returns a list of users (with plans)
+planworld.user.online ()
+	returns a list of users who are currently online
+planworld.nodes.list ()
+	returns array nodeinfo
+planworld.snoop.add ( string localuser, string remoteuser )
+	return boolean
+planworld.snoop.remove ( string localuser, string remoteuser )
+	return boolean
+planworld.snoop.clear (string remoteuser )
+	return boolean
+planworld.stats.getNumUsers ( string 'all'|'login', [int recent] )
+	returns int numusers
+	all: all users
+	login: all users who have logged in
+	recent (only with 'login'): limit to last 'recent' seconds
+planworld.stats.getNumPlans ( [string recent] )
+	returns int numplans
+	recent: limit to last 'recent' seconds
+planworld.stats.getNumSnitchRegistered ()
+	returns int numregistered
+planworld.stats.getNumViews ()
+	return int numviews
+planworld.stats.getNumHits ()
+	return int numhits
+
+Fault codes:
+800 - No such user
+801 - Method not supported (where one string or another is expected)
+
+Similarly, if you wish to allow planworld nodes to interact with an
+alternate system, expose the above functions (implement those relevant
+to your site) and get yourself added to the planworld node list by
+emailing <planworld@note.amherst.edu>.  If you have suggestions for
+other functions that should be added to this list, please email the
+planworld development team.
+
+$Id: README,v 1.8.4.1 2002/09/18 18:47:12 seth Exp $
