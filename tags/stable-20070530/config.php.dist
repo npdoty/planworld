@@ -1,0 +1,45 @@
+<?php
+/**
+ * $Id: config.php.dist,v 1.12.2.5 2003/10/03 23:47:44 seth Exp $
+ * Configuration variables
+ */
+
+require_once('version.php');
+
+// change this to reflect your node configuration settings
+define('PW_NAME', 'planworld');
+define('PW_EMAIL', 'you@example.com');
+define('PW_INCEPTION', '6/8/01');
+define('PW_DEFAULT_SKIN', '1');
+define('PW_LAYOUT', '1');
+define('PW_LOGOUT_URL', '/');
+define('PW_TMP_DIR', '/tmp');
+
+// database information
+define('PW_DB_TYPE', 'mysql');
+define('PW_DB_HOST', 'localhost');
+define('PW_DB_USER', 'planworld');
+define('PW_DB_PASS', 'plans');
+define('PW_DB_NAME', 'planworld');
+
+// set the idle timeout for "online users" to 10 minutes
+define('PW_IDLE_TIMEOUT', 600);
+
+// set the default timezone
+define('PW_TIMEZONE', 'America/New_York');
+
+// set the default divider
+define('PW_DIVIDER', "<pre>\n-----\n  date[n-j-y, g:i a]\n-----</pre>");
+
+// directory information
+// define('PW_LDAP_ENABLE', 1);
+define('PW_LDAP_HOST', 'ldap.example.com');
+define('PW_LDAP_BASE', 'dc=example, dc=com');
+
+// allowed tags
+define('PW_ALLOWED_TAGS', '<tt>,<font>,<b>,<strong>,<u>,<i>,<em>,<a>,<img>,<pre>,<hr>,<br>,<span>,<div>,<center>,<h1>,<h2>,<h3>,<h4>,<h5>,<h6>,<p>,<blockquote>,<ol>,<ul>,<li>,<embed>,<applet>,<style>,<q>,<dd>,<dl>,<dt>,<object>,<table>,<tr>,<td>,<param>,<noembed>,<comment>,<iframe>,<form>,<input>,<button>,<textarea>,<link>,<bgsound>,<sup>,<sub>,<strike>,<code>,<acronym>,<abbr>,<label>,<fieldset>,<address>');
+
+// reserved usernames
+define('PW_RESERVED', '|about|,|archiving|,|del_plan|,|edit_plan|,|edit_pw|,|prefs|,|random|,|stats|,|help|,|snitch|,|snoop|,|who|,|whois|,|stuff|,|widgets|last|new|');
+
+?>

@@ -1,0 +1,229 @@
+PLANWORLD
+
+Planworld is great a number of things to different people.  It
+provides a means for people to share information about themselves,
+their schedules, their diaries, or anything else they desire.  Plans
+are often used for conversation (through the use of Snitch and Snoop),
+providing a complex threaded environment with structure provided
+primarily by planworld's users.
+
+Planworld can be almost anything; it's use is limited only by the
+imaginations of those who use it.  It is unlikely that two planworlds
+will ever be alike; their uses will vary depending on the needs,
+desires, and alternative communication methods that users have at
+their disposal.
+
+Planworld has been designed with the intention of easily allowing
+users to share their plans with others, within their own
+planworld-group or with the public at large.  If users desire privacy,
+they may disable world-accessibility through the Preferences page.
+This will limit viewing of their plan to others in their own
+community.
+
+If you are interesting in assisting in the development of planworld or
+have any questions, please contact us at <planworld@note.amherst.edu>.
+We welcome suggestions, comments, bug reports, new skins, and
+especially patches.
+
+Requirements:
+
+- Apache 1.3.6+ (AllowOverride All must be set for the directory that
+  planworld was installed in for the .htaccess files to work;
+  alternatively, add the directives in <planworld_root>/.htaccess and
+  <planworld_root/backend/.htaccess to a <Directory> or <Location>
+  directive in your httpd.conf)
+
+- PHP 4.1.0 or higher (tested with PHP 4.1.0+) compiled with mysql, xml,
+  zlib, and xml-rpc support (--with-mysql --with-xml --with-zlib
+  --with-xmlrpc).
+
+  In order for planworld to work properly, the querystring delimiter
+  MUST include ';' To do this, uncomment these lines in php.ini (in
+  /usr/local/lib/):
+    arg_separator.output = "&amp;"
+    arg_separator.input = ";&"
+
+  If you would like to enable output compression (to reduce bandwidth
+  use or to provide better service to dial-up users), change the
+  value of zlib.output_compression to 'On':
+    zlib.output_compression = On
+
+  register_globals, which allows POST/GET variables to be accessed by
+  $var (vs. $HTTP_POST_VARS['var'], does not need to (and should not)
+  be enabled.  You needn't do anything about this, as it is disabled
+  in the .htaccess file.
+
+- MySQL 3.23.x or higher OR PostgreSQL 7.1 or higher
+  If you choose to use PostgreSQL, usernames will be case-sensitive
+  (i.e., 'jdoe' is not the same as 'JDoe'), unlike MySQL.
+
+Installation notes:
+
+This package includes an experimental finger daemon (for MySQL only)
+that allows finger access to your planworld node.  To configure it for
+your system, ensure that the database connection information in
+ffingerd.c is correct before compilation.  After compilation (make),
+you will need to manually copy it over the existing finger as root
+(often /usr/sbin/in.fingerd) and make sure that finger is enabled in
+your inetd.conf or xinetd.conf (make backups first).  The version
+provided has been in use at Amherst for over a year.  Due to excessive
+use early on, we were forced to replace inetd with xinetd (which more
+gracefully handles large numbers of connections without shutting
+down).  Your mileage may vary depending on your volume of use.
+
+Installation:
+
+1. Uncompress the tarball
+% cd <document root>
+% tar zxf /path/to/planworld-version.tar.gz
+
+2. change into the planworld directory
+% cd planworld
+
+3. create the planworld database
+% mysqladmin -uroot -p create planworld
+
+4. create planworld tables
+% mysql -uroot -p planworld < SQL/tables.sql
+
+5. create a planworld user, initialize tables
+% mysql -uroot -p planworld < SQL/init.sql
+
+6. fill the cookie jar
+% mysql -uroot -p planworld < SQL/cookies.sql
+TODO: either create a script that does this, or re-create cookies.sql
+to add an id sequence
+
+7. set up timezones
+% mysql -uroot -p planworld < SQL/timezone.sql
+
+8. configure planworld settings
+% cp config.php.dist config.php
+edit config.php
+
+9. set up authentication
+% cp auth.php.dist auth.php
+
+10. add backend/cache.php as a cron job set to run every 10 minutes or
+   however often you deem appropriate (this script caches last update
+   and last login times locally to lower the number of requests to
+   other nodes' backends)
+
+10a. (if php is compiled as a CGI)
+in your crontab:
+*/10 * * * * /path/to/planworld/backend/cache.php
+
+10b. (if php is not compiled as a CGI)
+in your crontab: 
+*/10 * * * * lynx -source http://example.com/planworld/backend/cache.php > /dev/null
+
+11. load information on additional planworld nodes into mysql
+
+11a. (if php is compiled as a CGI)
+% ./backend/getnodes.php | mysql -uplanworld -p planworld
+
+11b. (if php is not compiled as a CGI)
+% lynx -source http://example.com/planworld/backend/getnodes.php | \
+  mysql -uplanworld -p planworld
+
+12. add yourself to the node list
+% echo "INSERT INTO nodes (name, hostname, path, port) VALUES
+  ('yourname', 'example.com', '/planworld/backend/', 80);" | mysql
+  -uplanworld -p planworld
+
+13. Contact <planworld@note.amherst.edu> with appropriate node
+    information (name, hostname, port, and path to the backend) so
+    that we may add you to the node list.  In the future there may be
+    either a web-form or provided scripts to do this.  However, by
+    notifying us, we will be sure to inform you of any changes in the
+    node list, the backend, or planworld as a whole.
+
+In addition, you will probably want to tailor the default skin to fit
+your needs.  This will likely involve modifying outline.inc,
+trailer.inc, about.inc, edit.tpl, preferences.inc, and
+faq.inc.  ('tgerety,' the user that we commonly use as an example
+user, is Tom Gerety, the president of Amherst College.  Unfortunately,
+he does not have a plan.)  For testing, however, you will probably not
+need to change any of the files (including config.php and auth.php
+after copying them).
+
+Authentication:
+
+A very simple login script is provided for your use (auth.php.dist).
+It is invoked by prepend.php at the beginning of each page.  As-is, it
+does not check the validity of any given user, thus you will need to
+modify it in order to tie it into your existing authentication /
+authorization scheme.
+
+On NOTE's systems at Amherst, we use an HTTP authentication layer
+written in PHP that interacts with the college's mail servers using
+IMAP.  In the future, we hope to adapt it to use a PAM module to
+interact with the college's NT domain controllers as well as cURL to
+interact with an external alumni mail server accessible by HTTP only.
+
+By not providing any specific authentication method, we leave you free
+to implement your own or tie it into an existing system.  You are
+limited by your own imagination and skill, but we recommend keeping
+track of users with a database (such as MySQL) or an LDAP server (such
+as OpenLDAP).
+
+A caveat: if your authentication system creates users (which is
+probably will), make sure that it adds user entries for planworld to
+use with the User::addUser() method.  This ensures that initialization
+is done properly.
+
+Themes:
+
+Themes are stylesheets that are included in each planworld page load.
+Themes reside in layout/1/themes/ Furthermore, each has its own
+directory, e.g. 'metal', 'pastis' All necessary files for a theme
+should be located in its directory.  The stylesheet should be named
+'styles.css'.  If a different planworld logo is desired, it should be
+named 'planworld.gif'.  If you want further CSS positioning, etc., you
+may also have a file called extras.inc which gets included in each
+document inside the <body>.  For example, some people like floating
+graphics.
+
+If your theme requires other images, such as backgrounds, etc., these
+should be included in the theme's directory as well...but you'll need
+to reference them properly in the stylesheet. e.g. 'background-image:
+url('layout/1/themes/yourThemeName/yourBGimage.gif')
+
+To make the theme active, you need to add an entry to the 'themes'
+table in the db.  The fields are as follows:
+  id - a unique id for the skin.
+  skin_id - for the future when we include alternate skins.  For now
+            just leave it as '1'.
+  name - The name of the theme as you want it to appear in the list
+         of themes users may choose from.
+  dir - the name of the directory that the theme files lie in. This
+        is relative to layout/1/themes/ so if your theme is 'metal'
+        the entry in this field should just be 'metal'
+  author_name - who designed it
+  author_contact - how the designer can be reached.
+
+Of course the best way to make a new theme is look at the others and
+just follow their lead.
+
+Terminology:
+
+Many of the terms used in planworld (snitch, planwatch, fixplan) are
+holdovers from the days when plans existed solely on our VMS system.
+They are left in place as reminders here at Amherst.  As with anything
+else, you may change the terminology by modifying the existing skin or
+by creating a new one.
+
+History:
+
+A partial history as well as other interesting tidbits can be found in
+the 'About' section of a standard planworld installation.  It is
+interesting to note that since we released planworld to the Amherst
+College community, we discovered a similar system at Grinnell
+(www.math.grin.edu/~heckr/Finger/).  During development, we drew
+inspiration from planwatch.org, a similar community in the Pensacola,
+FL area developed by Josh Davidson.  Planworld.net was started by the
+author (using this software) as a means for friends of Amherst
+students to get in on plans.  If you know of others, please let us
+know.
+
+$Id: README,v 1.14.4.2 2003/03/15 21:10:07 seth Exp $

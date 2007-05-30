@@ -1,0 +1,29 @@
+body {
+  background-color: #ffffff;
+  color: #000000;
+  font-family: Arial, Verdana, Helvetica, sans-serif;
+  font-size: 14px;
+}
+h1, h2.error, blockquote, .me, .them {
+  color: #000000;
+}
+hr {
+  color: #000000;
+  background-color: #ffffff;
+}
+.me .name, .them .name {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 16px;
+}
+.me .name {
+  color: #ff0000;
+}
+.them .name {
+  color: #0000ff;
+}
+a {
+  color: #5252ff;
+}
+.forward {
+  color: #000000;
+}
