@@ -155,18 +155,24 @@ module ActionView
       #   end
       #
       # If you don't need to attach a form to a model instance, then check out FormTagHelper#form_tag.
-      def form_for(record_or_name, *args, &proc)
+      def form_for(record_or_name_or_array, *args, &proc)
         raise ArgumentError, "Missing block" unless block_given?
 
         options = args.last.is_a?(Hash) ? args.pop : {}
 
-        case record_or_name
+        case record_or_name_or_array
         when String, Symbol
-          object_name = record_or_name
+          object_name = record_or_name_or_array
+        when Array
+          object = record_or_name_or_array.last
+          object_name = ActionController::RecordIdentifier.singular_class_name(object)
+          # apply_form_for_options!(object, options, *record_or_name_or_array)
+          apply_form_for_options!(record_or_name_or_array, options)
+          args.unshift object
         else
-          object      = record_or_name
-          object_name = ActionController::RecordIdentifier.singular_class_name(record_or_name)
-          apply_form_for_options!(object, options)
+          object = record_or_name_or_array
+          object_name = ActionController::RecordIdentifier.singular_class_name(object)
+          apply_form_for_options!([ object ], options)
           args.unshift object
         end
 
@@ -174,18 +180,20 @@ module ActionView
         fields_for(object_name, *(args << options), &proc)
         concat('</form>', proc.binding)
       end
-      
-      def apply_form_for_options!(object, options) #:nodoc:
-        html_options = if object.respond_to?(:new_record?) && object.new_record?
-          { :class  => dom_class(object, :new),  :id => dom_id(object), :method => :post }
-        else
-          { :class  => dom_class(object, :edit), :id => dom_id(object, :edit), :method => :put }
-        end
+
+      def apply_form_for_options!(object_or_array, options) #:nodoc:
+        object = object_or_array.is_a?(Array) ? object_or_array.last : object_or_array
         
+        html_options =
+          if object.respond_to?(:new_record?) && object.new_record?
+            { :class  => dom_class(object, :new),  :id => dom_id(object), :method => :post }
+          else
+            { :class  => dom_class(object, :edit), :id => dom_id(object, :edit), :method => :put }
+          end
+
         options[:html] ||= {}
         options[:html].reverse_merge!(html_options)
-
-        options[:url] ||= polymorphic_path(object)
+        options[:url] ||= polymorphic_path(object_or_array)
       end
 
       # Creates a scope around a specific model object like form_for, but doesn't create the form tags themselves. This makes

@@ -15,7 +15,20 @@ silence_warnings do
       @new_record
     end
   end
+
+  class Comment
+    attr_reader :id
+    attr_reader :post_id
+    def save; @id = 1; @post_id = 1 end
+    def new_record?; @id.nil? end
+    def name
+      @id.nil? ? 'new comment' : "comment ##{@id}"
+    end
+  end
 end
+
+class Comment::Nested < Comment; end
+
 
 class FormHelperTest < Test::Unit::TestCase
   include ActionView::Helpers::FormHelper
@@ -28,6 +41,7 @@ class FormHelperTest < Test::Unit::TestCase
 
   def setup
     @post = Post.new
+    @comment = Comment.new
     def @post.errors() 
       Class.new{ 
         def on(field); "can't be empty" if field == "author_name"; end 
@@ -178,13 +192,6 @@ class FormHelperTest < Test::Unit::TestCase
     )
   end
   
-  def test_date_selects
-    assert_dom_equal(
-      '<textarea cols="40" id="post_body" name="post[body]" rows="20">Back to the hill and over it again!</textarea>',
-      text_area("post", "body")
-    )
-  end
-
   def test_explicit_name
     assert_dom_equal(
       '<input id="post_title" name="dont guess" size="30" type="text" value="Hello World" />', text_field("post", "title", "name" => "dont guess")
@@ -586,6 +593,25 @@ class FormHelperTest < Test::Unit::TestCase
     assert_equal expected, _erbout
   end
 
+  def test_form_for_with_existing_object_in_list
+    @post.new_record = false
+    @comment.save
+    _erbout = ''
+    form_for([@post, @comment]) {}
+
+    expected = %(<form action="#{comment_path(@post, @comment)}" class="edit_comment" id="edit_comment_1" method="post"><div style="margin:0;padding:0"><input name="_method" type="hidden" value="put" /></div></form>)
+    assert_dom_equal expected, _erbout
+  end
+
+  def test_form_for_with_new_object_in_list
+    @post.new_record = false
+    _erbout = ''
+    form_for([@post, @comment]) {}
+
+    expected = %(<form action="#{comments_path(@post)}" class="new_comment" id="new_comment" method="post"></form>)
+    assert_dom_equal expected, _erbout
+  end
+
   def test_form_for_with_existing_object_and_custom_url
     _erbout = ''
 
@@ -607,11 +633,35 @@ class FormHelperTest < Test::Unit::TestCase
 
 
   protected
-    def polymorphic_path(record)
-      if record.new_record?
-        "/posts"
+    def comments_path(post)
+      "/posts/#{post.id}/comments"
+    end
+
+    def comment_path(post, comment)
+      "/posts/#{post.id}/comments/#{comment.id}"
+    end
+
+    def polymorphic_path(record_or_hash_or_array)  
+      if record_or_hash_or_array.is_a?(Array)
+        record = record_or_hash_or_array.pop
+        array = record_or_hash_or_array
       else
-        "/posts/#{record.id}"
+        record = record_or_hash_or_array
+        array = [ ]
       end
+      
+      if array.size > 0
+        if record.new_record? 
+          "/posts/123/comments"
+        else
+          "/posts/123/comments/#{record.id}"
+        end
+      else
+        if record.new_record?
+          "/posts"
+        else
+          "/posts/#{record.id}"
+        end          
+      end        
     end
 end
