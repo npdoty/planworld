@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Test::Unit::UI::SpecDox::TestRunner</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Test::Unit::UI::SpecDox::TestRunner</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../../../files/lib/test/spec/dox_rb.html">
+                lib/test/spec/dox.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Test::Unit::UI::Console::TestRunner
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000066">add_fault</a>&nbsp;&nbsp;
+      <a href="#M000068">finished</a>&nbsp;&nbsp;
+      <a href="#M000076">indent</a>&nbsp;&nbsp;
+      <a href="#M000074">output_heading</a>&nbsp;&nbsp;
+      <a href="#M000073">output_item</a>&nbsp;&nbsp;
+      <a href="#M000072">output_no_nl</a>&nbsp;&nbsp;
+      <a href="#M000069">output_result</a>&nbsp;&nbsp;
+      <a href="#M000065">setup_mediator</a>&nbsp;&nbsp;
+      <a href="#M000067">started</a>&nbsp;&nbsp;
+      <a href="#M000071">test_finished</a>&nbsp;&nbsp;
+      <a href="#M000070">test_started</a>&nbsp;&nbsp;
+      <a href="#M000075">unmangle</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Protected Instance methods</h3>
+
+      <div id="method-M000066" class="method-detail">
+        <a name="M000066"></a>
+
+        <div class="method-heading">
+          <a href="#M000066" class="method-signature">
+          <span class="method-name">add_fault</span><span class="method-args">(fault)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000066-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000066-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/test/spec/dox.rb, line 11</span>
+11:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_fault</span>(<span class="ruby-identifier">fault</span>)
+12:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">fault</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Test</span><span class="ruby-operator">::</span><span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Disabled</span>
+13:           <span class="ruby-ivar">@disabled</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+14:           <span class="ruby-identifier">output_no_nl</span> <span class="ruby-value str">&quot; (disabled)&quot;</span>
+15:         <span class="ruby-keyword kw">else</span>
+16:           <span class="ruby-ivar">@faults</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">fault</span>
+17:           <span class="ruby-identifier">word</span> = <span class="ruby-identifier">fault</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>[<span class="ruby-regexp re">/(.*::)?(.*)/</span>, <span class="ruby-value">2</span>].<span class="ruby-identifier">upcase</span>
+18:           <span class="ruby-identifier">output_no_nl</span> <span class="ruby-node">&quot; (#{word} - #{@faults.size})&quot;</span>
+19:         <span class="ruby-keyword kw">end</span>
+20:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000068" class="method-detail">
+        <a name="M000068"></a>
+
+        <div class="method-heading">
+          <a href="#M000068" class="method-signature">
+          <span class="method-name">finished</span><span class="method-args">(elapsed_time)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000068-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000068-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/test/spec/dox.rb, line 30</span>
+30:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">finished</span>(<span class="ruby-identifier">elapsed_time</span>)
+31:         <span class="ruby-identifier">nl</span>
+32:         <span class="ruby-identifier">output</span> <span class="ruby-node">&quot;Finished in #{elapsed_time} seconds.&quot;</span>
+33:         <span class="ruby-ivar">@faults</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">fault</span>, <span class="ruby-identifier">index</span><span class="ruby-operator">|</span>
+34:           <span class="ruby-identifier">nl</span>
+35:           <span class="ruby-identifier">output</span>(<span class="ruby-value str">&quot;%3d) %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">index</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>, <span class="ruby-identifier">fault</span>.<span class="ruby-identifier">long_display</span>])
+36:         <span class="ruby-keyword kw">end</span>
+37:         <span class="ruby-identifier">nl</span>
+38:         <span class="ruby-identifier">output_result</span>
+39:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000076" class="method-detail">
+        <a name="M000076"></a>
+
+        <div class="method-heading">
+          <a href="#M000076" class="method-signature">
+          <span class="method-name">indent</span><span class="method-args">(depth)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000076-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000076-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/test/spec/dox.rb, line 116</span>
+116:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">indent</span>(<span class="ruby-identifier">depth</span>)
+117:         <span class="ruby-ivar">@indent</span> = <span class="ruby-identifier">depth</span>
+118:         <span class="ruby-ivar">@prefix</span> = <span class="ruby-value str">&quot;  &quot;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">depth</span>
+119:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000074" class="method-detail">
+        <a name="M000074"></a>
+
+        <div class="method-heading">
+          <a href="#M000074" class="method-signature">
+          <span class="method-name">output_heading</span><span class="method-args">(heading)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000074-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000074-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/test/spec/dox.rb, line 95</span>
+95:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">output_heading</span>(<span class="ruby-identifier">heading</span>)
+96:         <span class="ruby-identifier">output</span> <span class="ruby-node">&quot;#{@prefix}#{heading}&quot;</span>
+97:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000073" class="method-detail">
+        <a name="M000073"></a>
+
+        <div class="method-heading">
+          <a href="#M000073" class="method-signature">
+          <span class="method-name">output_item</span><span class="method-args">(item)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000073-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000073-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/test/spec/dox.rb, line 91</span>
+91:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">output_item</span>(<span class="ruby-identifier">item</span>)
+92:         <span class="ruby-identifier">output_no_nl</span> <span class="ruby-node">&quot;#{@prefix}- #{item}&quot;</span>
+93:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000072" class="method-detail">
+        <a name="M000072"></a>
+
+        <div class="method-heading">
+          <a href="#M000072" class="method-signature">
+          <span class="method-name">output_no_nl</span><span class="method-args">(something, level=NORMAL)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000072-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000072-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/test/spec/dox.rb, line 86</span>
+86:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">output_no_nl</span>(<span class="ruby-identifier">something</span>, <span class="ruby-identifier">level</span>=<span class="ruby-constant">NORMAL</span>)
+87:         <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">something</span>) <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">output?</span>(<span class="ruby-identifier">level</span>))
+88:         <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">flush</span>
+89:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000069" class="method-detail">
+        <a name="M000069"></a>
+
+        <div class="method-heading">
+          <a href="#M000069" class="method-signature">
+          <span class="method-name">output_result</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000069-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000069-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/test/spec/dox.rb, line 41</span>
+41:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">output_result</span>
+42:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@disabled</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+43:           <span class="ruby-identifier">disabled</span> = <span class="ruby-node">&quot;, #{@disabled} disabled&quot;</span>
+44:         <span class="ruby-keyword kw">else</span>
+45:           <span class="ruby-identifier">disabled</span> = <span class="ruby-value str">&quot;&quot;</span>
+46:         <span class="ruby-keyword kw">end</span>
+47: 
+48:         <span class="ruby-identifier">r</span> = <span class="ruby-node">&quot;%d specifications#{disabled} (%d requirements), %d failures&quot;</span> <span class="ruby-operator">%</span> [
+49:           <span class="ruby-ivar">@result</span>.<span class="ruby-identifier">run_count</span>, <span class="ruby-ivar">@result</span>.<span class="ruby-identifier">assertion_count</span>, <span class="ruby-ivar">@result</span>.<span class="ruby-identifier">failure_count</span>]
+50:         <span class="ruby-identifier">r</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;, #{@result.error_count} errors&quot;</span>  <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@result</span>.<span class="ruby-identifier">error_count</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+51:         <span class="ruby-identifier">output</span> <span class="ruby-identifier">r</span>
+52:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000065" class="method-detail">
+        <a name="M000065"></a>
+
+        <div class="method-heading">
+          <a href="#M000065" class="method-signature">
+          <span class="method-name">setup_mediator</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000065-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000065-source">
+<pre>
+   <span class="ruby-comment cmt"># File lib/test/spec/dox.rb, line 7</span>
+7:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">setup_mediator</span>
+8:         <span class="ruby-ivar">@mediator</span> = <span class="ruby-identifier">create_mediator</span>(<span class="ruby-ivar">@suite</span>)
+9:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000067" class="method-detail">
+        <a name="M000067"></a>
+
+        <div class="method-heading">
+          <a href="#M000067" class="method-signature">
+          <span class="method-name">started</span><span class="method-args">(result)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000067-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000067-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/test/spec/dox.rb, line 22</span>
+22:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">started</span>(<span class="ruby-identifier">result</span>)
+23:         <span class="ruby-ivar">@result</span> = <span class="ruby-identifier">result</span>
+24:         <span class="ruby-ivar">@context</span> = <span class="ruby-keyword kw">nil</span>
+25:         <span class="ruby-ivar">@contexts</span> = []
+26:         <span class="ruby-ivar">@disabled</span> = <span class="ruby-value">0</span>
+27:         <span class="ruby-identifier">indent</span> <span class="ruby-value">0</span>
+28:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000071" class="method-detail">
+        <a name="M000071"></a>
+
+        <div class="method-heading">
+          <a href="#M000071" class="method-signature">
+          <span class="method-name">test_finished</span><span class="method-args">(name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000071-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000071-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/test/spec/dox.rb, line 81</span>
+81:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_finished</span>(<span class="ruby-identifier">name</span>)
+82:         <span class="ruby-comment cmt"># Don't let empty contexts clutter up the output.</span>
+83:         <span class="ruby-identifier">nl</span>  <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">name</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\Adefault_test\(/</span>
+84:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000070" class="method-detail">
+        <a name="M000070"></a>
+
+        <div class="method-heading">
+          <a href="#M000070" class="method-signature">
+          <span class="method-name">test_started</span><span class="method-args">(name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000070-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000070-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/test/spec/dox.rb, line 54</span>
+54:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_started</span>(<span class="ruby-identifier">name</span>)
+55:         <span class="ruby-identifier">contextname</span>, <span class="ruby-identifier">specname</span> = <span class="ruby-identifier">unmangle</span> <span class="ruby-identifier">name</span>
+56:         <span class="ruby-keyword kw">return</span>  <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">contextname</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">specname</span>.<span class="ruby-identifier">nil?</span>
+57: 
+58:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@context</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">contextname</span>
+59:           <span class="ruby-ivar">@context</span> = <span class="ruby-identifier">contextname</span>
+60: 
+61:           <span class="ruby-ivar">@old_contexts</span> = <span class="ruby-ivar">@contexts</span>
+62:           <span class="ruby-ivar">@contexts</span> = <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;\t&quot;</span>)
+63: 
+64:           <span class="ruby-identifier">common</span> = <span class="ruby-value">0</span>
+65:           <span class="ruby-ivar">@contexts</span>.<span class="ruby-identifier">zip</span>(<span class="ruby-ivar">@old_contexts</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span><span class="ruby-operator">|</span>
+66:             <span class="ruby-keyword kw">break</span>  <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">a</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">b</span>
+67:             <span class="ruby-identifier">common</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+68:           }
+69: 
+70:           <span class="ruby-identifier">nl</span>  <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">common</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+71: 
+72:           <span class="ruby-ivar">@contexts</span>[<span class="ruby-identifier">common</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>].<span class="ruby-identifier">each_with_index</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">head</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+73:             <span class="ruby-identifier">indent</span> <span class="ruby-identifier">common</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">i</span>
+74:             <span class="ruby-identifier">output_heading</span> <span class="ruby-identifier">head</span>
+75:           }
+76:         <span class="ruby-keyword kw">end</span>
+77:         
+78:         <span class="ruby-identifier">output_item</span> <span class="ruby-identifier">specname</span>
+79:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000075" class="method-detail">
+        <a name="M000075"></a>
+
+        <div class="method-heading">
+          <a href="#M000075" class="method-signature">
+          <span class="method-name">unmangle</span><span class="method-args">(name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000075-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000075-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/test/spec/dox.rb, line 99</span>
+ 99:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">unmangle</span>(<span class="ruby-identifier">name</span>)
+100:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">name</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\Atest_spec \{(.*?)\} \d+ \[(.*)\]/</span>
+101:           <span class="ruby-identifier">contextname</span> = <span class="ruby-identifier">$1</span>
+102:           <span class="ruby-identifier">specname</span> = <span class="ruby-identifier">$2</span>
+103:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">name</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/test_(.*?)\((.*)\)$/</span>
+104:           <span class="ruby-identifier">specname</span> = <span class="ruby-identifier">$1</span>
+105:           <span class="ruby-identifier">contextname</span> = <span class="ruby-identifier">$2</span>
+106: 
+107:           <span class="ruby-identifier">contextname</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/^Test\B|\BTest$/</span>, <span class="ruby-value str">''</span>)
+108:           <span class="ruby-identifier">specname</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/_/</span>, <span class="ruby-value str">' '</span>)
+109:         <span class="ruby-keyword kw">else</span>
+110:           <span class="ruby-identifier">contextname</span> = <span class="ruby-identifier">specname</span> = <span class="ruby-keyword kw">nil</span>
+111:         <span class="ruby-keyword kw">end</span>
+112: 
+113:         [<span class="ruby-identifier">contextname</span>, <span class="ruby-identifier">specname</span>]
+114:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,177 @@
+Wed Jan 24 12:07:09 CET 2007  Christian Neukirchen <chneukirchen@gmail.com>
+  tagged 0.3
+
+Wed Jan 24 12:06:23 CET 2007  Christian Neukirchen <chneukirchen@gmail.com>
+  * set VERSION 0.3
+
+Wed Jan 24 12:05:28 CET 2007  Christian Neukirchen <chneukirchen@gmail.com>
+  * Last minute fixes
+
+Wed Jan 24 11:51:39 CET 2007  Christian Neukirchen <chneukirchen@gmail.com>
+  * Update docs
+
+Wed Jan 24 11:50:14 CET 2007  Christian Neukirchen <chneukirchen@gmail.com>
+  * Improve rdoc
+
+Wed Jan 24 11:40:37 CET 2007  Christian Neukirchen <chneukirchen@gmail.com>
+  * Rename met_by? to matches? to conform latest RSpec
+
+Tue Jan 16 18:57:27 CET 2007  Christian Neukirchen <chneukirchen@gmail.com>
+  * Improve coverage
+
+Tue Jan 16 18:56:48 CET 2007  Christian Neukirchen <chneukirchen@gmail.com>
+  * Add hoe
+
+Tue Jan 16 17:11:05 CET 2007  Christian Neukirchen <chneukirchen@gmail.com>
+  * Some docfixes
+
+Tue Jan 16 17:07:55 CET 2007  Christian Neukirchen <chneukirchen@gmail.com>
+  * Make test suite use custom shoulds, fix some details
+
+Tue Jan 16 16:29:12 CET 2007  Christian Neukirchen <chneukirchen@gmail.com>
+  * Add custom shoulds
+
+Fri Jan  5 15:25:35 CET 2007  Christian Neukirchen <chneukirchen@gmail.com>
+  * Update copyright messages for 2007
+
+Fri Jan  5 12:24:46 CET 2007  Christian Neukirchen <chneukirchen@gmail.com>
+  * Add should.not.satisfy
+
+Thu Jan  4 19:09:46 CET 2007  Christian Neukirchen <chneukirchen@gmail.com>
+  * Add disabling with xspecify
+
+Thu Jan  4 19:03:04 CET 2007  Christian Neukirchen <chneukirchen@gmail.com>
+  * Add #messaging/#blaming
+
+Thu Jan  4 17:34:00 CET 2007  Christian Neukirchen <chneukirchen@gmail.com>
+  * specrb -a now includes -Ilib by default for easier out-of-the-box testing
+
+Thu Jan  4 17:30:49 CET 2007  Christian Neukirchen <chneukirchen@gmail.com>
+  * Deprecation of be_close, be_an_instance_of, be_a_kind_of, and be_nil
+
+Tue Nov 14 13:21:38 CET 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Unshift the LOAD_PATH to recreate a more -I-like behavior
+
+Mon Nov 13 23:03:41 CET 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Use Dir.tmpdir for temporary file paths
+
+Wed Oct 18 18:21:06 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  tagged 0.2
+
+Wed Oct 18 10:48:25 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Update documentation
+
+Wed Oct 18 10:46:32 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Small alias tweak
+
+Wed Oct 18 10:31:56 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Run specrb with "ruby", not the shell
+
+Wed Oct 18 10:22:05 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Rescue seeking
+
+Wed Oct 18 09:58:22 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Add roadmap
+
+Sun Oct 15 23:47:07 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Simplify Rakefile
+
+Sun Oct 15 23:46:16 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Fix should.output with redirection
+
+Sun Oct 15 22:43:55 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Make rake use specrb
+
+Sun Oct 15 22:34:31 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Add specrb, a standalone test/spec runner
+
+Sun Oct 15 22:25:49 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * A better fix for empty testcases
+
+Sat Oct 14 17:08:23 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Make test/spec more robust
+
+Sat Oct 14 16:42:08 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Implement nested contexts
+
+Sat Oct 14 15:04:04 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Fix warnings
+
+Sat Oct 14 14:59:52 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * add should <operator> (>, >=, <, <=, ===)
+
+Wed Oct 11 00:06:17 CEST 2006  Eero Saynatkari <projects@kittensoft.org>
+  * More robust Should#output
+  - Should#output uses IO#reopen and writes
+    directly to a file rather than bothering
+    with StringIO. This should enable catching
+    output from child processes etc. also.
+
+Mon Oct  2 13:15:59 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Add mocha/stubba tests
+
+Mon Oct  2 13:12:24 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Add flexmock tests
+
+Mon Oct  2 13:11:37 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * should.raise should return the exception
+
+Mon Oct  2 13:11:17 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Refactor to modules
+
+Fri Sep 29 20:24:42 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Fix warnings, enable -w for testing
+
+Fri Sep 29 18:26:14 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  tagged 0.1
+
+Fri Sep 29 18:20:34 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Last-minute fixes.
+
+Fri Sep 29 17:59:57 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Fix SPECS generation
+
+Fri Sep 29 17:36:34 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Add VERSION number
+
+Fri Sep 29 17:35:47 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Polish it
+
+Fri Sep 29 17:34:56 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Allow Object#should without specify-block
+
+Fri Sep 29 17:03:36 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Add README
+
+Fri Sep 29 17:01:31 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Test =~
+
+Fri Sep 29 17:00:53 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Fix small mangling bug
+
+Fri Sep 29 14:50:01 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Add RDox
+
+Fri Sep 29 12:23:40 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Add more tests
+
+Fri Sep 29 12:23:25 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Add SpecDox mangling for test/unit method names, too
+
+Fri Sep 29 12:22:00 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Rearranging for rdoc
+
+Fri Sep 29 12:20:10 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Fix rdoc task
+
+Thu Sep 28 15:36:14 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Run contexts in order of appearance
+
+Thu Sep 28 13:23:48 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Add and integrate RDox, TestDox-like output for RDoc
+
+Wed Sep 27 21:37:54 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Integrate Rakefile
+
+Wed Sep 27 21:37:11 CEST 2006  Christian Neukirchen <chneukirchen@gmail.com>
+  * Initial import of testspec
