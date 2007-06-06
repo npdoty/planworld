@@ -1,0 +1,7 @@
+first:
+  id: 1
+<% for attribute in attributes -%>
+  <%= attribute.name %>: <%= attribute.default %>
+<% end -%>
+  created_at: <%%= 3.days.ago.to_s(:db) %>
+  updated_at: <%%= 3.days.ago.to_s(:db) %>

@@ -13,7 +13,7 @@
 #   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
 development:
   adapter: mysql
-  database: planworld.rb_development
+  database: planworld_development
   username: root
   password:
   socket: /tmp/mysql.sock
@@ -23,14 +23,14 @@ development:
 # Do not set this db to the same as development or production.
 test:
   adapter: mysql
-  database: planworld.rb_test
+  database: planworld_test
   username: root
   password:
   socket: /tmp/mysql.sock
 
 production:
   adapter: mysql
-  database: planworld.rb_production
+  database: planworld_production
   username: root
   password: 
   socket: /tmp/mysql.sock

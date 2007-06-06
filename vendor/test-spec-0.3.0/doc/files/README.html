@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: README</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>README</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>README
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Wed Jan 24 12:13:27 CET 2007</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1>test/spec, a BDD interface for Test::Unit</h1>
+<p>
+Copyright (C) 2006, 2007 Christian Neukirchen &lt;<a
+href="mailto:chneukirchen@gmail.com">chneukirchen@gmail.com</a>&gt;
+</p>
+<h2>What is test/spec?</h2>
+<p>
+test/spec layers an RSpec-inspired interface on top of Test::Unit, so you
+can mix TDD and BDD (Behavior-Driven Development).
+</p>
+<p>
+test/spec is a clean-room implementation that maps most kinds of Test::Unit
+assertions to a `should&#8217;-like syntax.
+</p>
+<p>
+Consider this Test::Unit test case:
+</p>
+<pre>
+    class TestFoo &lt; Test::Unit::TestCase
+      def test_should_bar
+        assert_equal 5, 2 + 3
+      end
+    end
+</pre>
+<p>
+In test/spec, it looks like this:
+</p>
+<pre>
+    require 'test/spec'
+
+    context &quot;Foo&quot; do
+      specify &quot;should bar&quot; do
+        (2 + 3).should.equal 5
+      end
+    end
+</pre>
+<p>
+test/spec does not include a mocking/stubbing-framework; use whichever you
+like to. test/spec has been tested successfully with FlexMock and Mocha.
+</p>
+<p>
+test/spec has no dependencies outside Ruby 1.8.
+</p>
+<h2>Mixing test/spec and test/unit</h2>
+<p>
+test/spec and Test::Unit contexts/test cases can be intermixed freely, run
+in the same test and live in the same files. You can just add them to your
+Rake::TestTask, too. test/spec allows you to leverage your full existing
+Test::Unit infrastructure.
+</p>
+<p>
+test/spec does not change Test::Unit with the exception of monkey-patching
+Test::Unit::TestSuite to order the test cases before running them. (This
+should not do any harm, but if you know a way around it, please tell me.)
+</p>
+<p>
+test/spec adds two global methods, <a
+href="../classes/Object.html#M000001">Object#should</a> and <a
+href="../classes/Kernel.html#M000002">Kernel.context</a>.
+</p>
+<p>
+You can use <tt>assert_*</tt> freely in specify-blocks; <a
+href="../classes/Object.html#M000001">Object#should</a> works in plain
+Test::Unit test cases, too, but they will not be counted.
+</p>
+<h2>Wrapped assertions</h2>
+<table>
+<tr><td valign="top"><tt>assert_equal</tt>:</td><td><tt>should.equal</tt>, <tt>should ==</tt>
+
+</td></tr>
+<tr><td valign="top"><tt>assert_not_equal</tt>:</td><td><tt>should.not.equal</tt>, <tt>should.not ==</tt>
+
+</td></tr>
+<tr><td valign="top"><tt>assert_same</tt>:</td><td><tt>should.be</tt>
+
+</td></tr>
+<tr><td valign="top"><tt>assert_not_same</tt>:</td><td><tt>should.not.be</tt>
+
+</td></tr>
+<tr><td valign="top"><tt>assert_nil</tt>:</td><td><tt>should.be.nil</tt>
+
+</td></tr>
+<tr><td valign="top"><tt>assert_not_nil</tt>:</td><td><tt>should.not.be.nil</tt>
+
+</td></tr>
+<tr><td valign="top"><tt>assert_in_delta</tt>:</td><td><tt>should.be.close</tt>
+
+</td></tr>
+<tr><td valign="top"><tt>assert_match</tt>:</td><td><tt>should.match</tt>, <tt>should =~</tt>
+
+</td></tr>
+<tr><td valign="top"><tt>assert_no_match</tt>:</td><td><tt>should.not.match</tt>, <tt>should.not =~</tt>
+
+</td></tr>
+<tr><td valign="top"><tt>assert_instance_of</tt>:</td><td><tt>should.be.an.instance_of</tt>
+
+</td></tr>
+<tr><td valign="top"><tt>assert_kind_of</tt>:</td><td><tt>should.be.a.kind_of</tt>
+
+</td></tr>
+<tr><td valign="top"><tt>assert_respond_to</tt>:</td><td><tt>should.respond_to</tt>
+
+</td></tr>
+<tr><td valign="top"><tt>assert_raise</tt>:</td><td><tt>should.raise</tt>
+
+</td></tr>
+<tr><td valign="top"><tt>assert_nothing_raised</tt>:</td><td><tt>should.not.raise</tt>
+
+</td></tr>
+<tr><td valign="top"><tt>assert_throws</tt>:</td><td><tt>should.throw</tt>
+
+</td></tr>
+<tr><td valign="top"><tt>assert_nothing_thrown</tt>:</td><td><tt>should.not.throw</tt>
+
+</td></tr>
+<tr><td valign="top"><tt>assert_block</tt>:</td><td><tt>should.satisfy</tt>
+
+</td></tr>
+</table>
+<p>
+(<tt>a</tt>, <tt>an</tt> and <tt>be</tt> without arguments are optional and
+no-ops.)
+</p>
+<h2>Additional assertions</h2>
+<p>
+These assertions are not included in Test::Unit, but have been added to
+test/spec for convenience:
+</p>
+<ul>
+<li><tt>should.not.satisfy</tt>
+
+</li>
+<li><tt>should.include</tt>
+
+</li>
+<li><tt>a.should.</tt><em>predicate</em> (works like <tt>assert
+a.</tt><em>predicate</em><tt>?</tt>)
+
+</li>
+<li><tt>a.should.be </tt><em>operator</em> (where <em>operator</em> is one of
+<tt>&gt;</tt>, <tt>&gt;=</tt>, <tt>&lt;</tt>, <tt>&lt;=</tt> or
+<tt>===</tt>)
+
+</li>
+<li><tt>should.output</tt> (require test/spec/should-output)
+
+</li>
+</ul>
+<p>
+If you write an useful general-purpose assertion, I&#8217;d like to hear of
+it and may add it to the test/spec distribution.
+</p>
+<h2>Messaging/Blaming</h2>
+<p>
+With more complex assertions, it may be helpful to provide a message to
+show if the assertion has failed. This can be done with the Should#blaming
+or Should#messaging methods:
+</p>
+<pre>
+    RUBY_VERSION.should.messaging(&quot;Ruby too old.&quot;).be &gt; &quot;1.8.4&quot;
+
+    (1 + 1).should.blaming(&quot;weird math&quot;).not.equal 11
+</pre>
+<h2>Custom shoulds (&quot;Matchers&quot;)</h2>
+<p>
+To capture recurring patterns in parts of your specifications, you can
+define custom &quot;shoulds&quot; (RSpec calls them &quot;matchers&quot;)
+in your contexts, or include modules of them:
+</p>
+<pre>
+    context &quot;Numbers&quot;
+      class EqualString &lt; Test::Spec::CustomShould
+        def matches?(other)
+          object == other.to_s
+        end
+      end
+
+      def equal_string(str)
+        EqualString.new(str)
+      end
+
+      specify &quot;should have to_s&quot;
+        42.should equal_string(&quot;42&quot;)
+      end
+    end
+</pre>
+<p>
+Alternatively, your implementation can define CustomShould#assumptions,
+where you can use test/spec assertions instead of Boolean predicates:
+</p>
+<pre>
+    class EqualString &lt; Test::Spec::CustomShould
+      def assumptions(other)
+        object.should.equal other.to_s
+      end
+    end
+</pre>
+<p>
+A CustomShould by default takes one argument, which is placed in
+self.object for your convenience.
+</p>
+<p>
+You can CustomShould#failure_message to provide a better error message.
+</p>
+<h2>SpecDox and RDox</h2>
+<p>
+test/spec adds two additional test runners to Test::Unit, based on the
+console runner but with a different output format.
+</p>
+<p>
+SpecDox, run with <tt>&#8212;runner=specdox</tt> (or <tt>-rs</tt>) looks
+like RSpec&#8217;s output:
+</p>
+<pre>
+    should.output
+    - works for print
+    - works for puts
+    - works with readline
+</pre>
+<p>
+RDox, run with <tt>&#8212;runner=rdox</tt> (or <tt>-rr</tt>) can be
+included for RDoc documentation (e.g. see SPECS):
+</p>
+<pre>
+    == should.output
+    * works for print
+    * works for puts
+    * works with readline
+</pre>
+<p>
+SpecDox and RDox work for Test::Unit too:
+</p>
+<pre>
+    $ ruby -r test/spec test/testunit/test_testresult.rb -rs
+
+    Test::Unit::TC_TestResult
+    - fault notification
+    - passed?
+    - result changed notification
+
+    Finished in 0.106647 seconds.
+
+    3 specifications (30 requirements), 0 failures
+</pre>
+<h2>Disabled specifications</h2>
+<p>
+Akin to the usual Test::Unit practice, tests quickly can be disabled by
+replacing <tt>specify</tt> with <tt>xspecify</tt>. test/spec will count the
+disabled tests when you run it with SpecDox or RDox.
+</p>
+<h2>specrb</h2>
+<p>
+Since version 0.2, test/spec features a standalone test runner called
+specrb. specrb is like an extended version of testrb, Test::Unit&#8217;s
+test runner, but has additional options. It can be used for plain
+Test::Unit suites, too.
+</p>
+<pre>
+    $ specrb -a -s -n should.output
+
+    should.output
+    - works for print
+    - works for puts
+    - works with readline
+
+    Finished in 0.162571 seconds.
+
+    3 specifications (6 requirements), 0 failures
+</pre>
+<p>
+Run <tt>specrb &#8212;help</tt> for the usage.
+</p>
+<h2>Installing with RubyGems</h2>
+<p>
+Since version 0.3, a Gem of test/spec is available. You can install with:
+</p>
+<pre>
+    gem install test-spec
+</pre>
+<p>
+I also provide a local mirror of the gems (and development snapshots) at my
+site:
+</p>
+<pre>
+    gem install test-spec --source http://chneukirchen.org/releases/gems
+</pre>
+<h2>History</h2>
+<ul>
+<li>September 29th, 2006: First public release 0.1.
+
+</li>
+<li>October 18th, 2006: Second public release 0.2.
+
+<ul>
+<li>Better, module-based implementation
+
+</li>
+<li>Official support for FlexMock and Mocha
+
+</li>
+<li>More robust Should#output
+
+</li>
+<li>Should#<em>operator</em>
+
+</li>
+<li>Nested contexts
+
+</li>
+<li>Standalone test/spec runner, specrb
+
+</li>
+</ul>
+</li>
+<li>January 24th, 2007: Third public release 0.3.
+
+<ul>
+<li>should.be_close, should.be_an_instance_of, should.be_a_kind_of, and
+should.be_nil have been deprecated. Use the dot-variants of them. These
+assertions will be removed in 1.0.
+
+</li>
+<li>specrb -a now includes -Ilib by default for easier out-of-the-box testing.
+
+</li>
+<li>Added custom shoulds.
+
+</li>
+<li>Added messaging/blaming.
+
+</li>
+<li>Added disabling of specifications.
+
+</li>
+<li>Small bug fixes.
+
+</li>
+<li>Gem available.
+
+</li>
+</ul>
+</li>
+</ul>
+<h2>Contact</h2>
+<p>
+Please mail bugs, suggestions and patches to &lt;<a
+href="mailto:chneukirchen@gmail.com">chneukirchen@gmail.com</a>&gt;.
+</p>
+<p>
+Darcs repository (&quot;darcs send&quot; is welcome for patches): <a
+href="http://chneukirchen.org/repos/testspec">chneukirchen.org/repos/testspec</a>
+</p>
+<h2>Thanks to</h2>
+<ul>
+<li>Eero Saynatkari for writing <tt>should.output</tt>.
+
+</li>
+<li>Jean-Michel Garnier for packaging the first gem.
+
+</li>
+<li>Mikko Lehtonen for testing the gem.
+
+</li>
+<li>Thomas Fuchs for script.aculo.us BDD testing which convinced me.
+
+</li>
+<li>Dave Astels for BDD.
+
+</li>
+<li>The RSpec team for API inspiration.
+
+</li>
+<li>Nathaniel Talbott for Test::Unit.
+
+</li>
+</ul>
+<h2>Copying</h2>
+<p>
+Copyright (C) 2006, 2007 Christian Neukirchen &lt;<a
+href="http://purl.org/net/chneukirchen">purl.org/net/chneukirchen</a>&gt;
+</p>
+<p>
+test/spec is licensed under the same terms as Ruby itself.
+</p>
+<p>
+Please mail bugs, feature requests or patches to the mail addresses found
+above or use <a href="irc://freenode.net/#ruby-lang">IRC</a> to contact the
+developer.
+</p>
+<h2>Links</h2>
+<table>
+<tr><td valign="top">Behavior-Driven Development:</td><td>&lt;<a href="http://behaviour-driven.org">behaviour-driven.org</a>/&gt;
+
+</td></tr>
+<tr><td valign="top">RSpec:</td><td>&lt;<a href="http://rspec.rubyforge.org">rspec.rubyforge.org</a>/&gt;
+
+</td></tr>
+<tr><td valign="top">script.aculo.us testing:</td><td>&lt;<a
+href="http://mir.aculo.us/articles/2006/08/29/bdd-style-javascript-testing">mir.aculo.us/articles/2006/08/29/bdd-style-javascript-testing</a>&gt;
+
+</td></tr>
+<tr><td valign="top">FlexMock:</td><td>&lt;<a
+href="http://onestepback.org/software/flexmock">onestepback.org/software/flexmock</a>/&gt;
+
+</td></tr>
+<tr><td valign="top">Mocha:</td><td>&lt;<a href="http://mocha.rubyforge.org">mocha.rubyforge.org</a>/&gt;
+
+</td></tr>
+<tr><td valign="top">Christian Neukirchen:</td><td>&lt;<a href="http://chneukirchen.org">chneukirchen.org</a>/&gt;
+
+</td></tr>
+</table>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

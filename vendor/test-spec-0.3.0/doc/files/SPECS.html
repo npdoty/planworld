@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: SPECS</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>SPECS</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>SPECS
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Wed Jan 24 12:13:33 CET 2007</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h2>TestUnit</h2>
+<ul>
+<li>still works on its own
+
+</li>
+<li>supports should good enough
+
+</li>
+<li>works inside test/spec
+
+</li>
+</ul>
+<h2>SpecDox</h2>
+<ul>
+<li>can unmangle Test::Unit names correctly
+
+</li>
+<li>can unmangle <a href="../classes/Test/Spec.html">Test::Spec</a> names
+correctly
+
+</li>
+<li>has sensible fallbacks
+
+</li>
+</ul>
+<h2>flexmock</h2>
+<ul>
+<li>should handle
+
+</li>
+<li>should handle without a block
+
+</li>
+<li>should handle with a block
+
+</li>
+<li>should have a return value
+
+</li>
+<li>should handle missing methods
+
+</li>
+<li>should ignore missing methods
+
+</li>
+<li>should count correctly
+
+</li>
+<li>should raise on bad counts
+
+</li>
+<li>should handle undetermined counts
+
+</li>
+<li>should handle zero counts
+
+</li>
+<li>should have file IO with use
+
+</li>
+<li>should have use
+
+</li>
+<li>should handle failures during use
+
+</li>
+<li>should deal with sequential values
+
+</li>
+<li>respond_to? should return false for non handled methods
+
+</li>
+<li>respond_to? should return true for explicit methods
+
+</li>
+<li>respond_to? should return true when ignoring_missing
+
+</li>
+<li>respond_to? should return true for missing_methods when
+should_ignore_missing
+
+</li>
+<li>should raise error on unknown method proc
+
+</li>
+<li>should return callable proc on method
+
+</li>
+<li>should return do nothing proc for missing methods
+
+</li>
+<li>works with test/spec
+
+</li>
+</ul>
+<h2>mocha</h2>
+<ul>
+<li>works with test/spec
+
+</li>
+<li>works with test/spec and Enterprise example
+
+</li>
+</ul>
+<h2>stubba</h2>
+<ul>
+<li>works with test/spec and instance method stubbing
+
+</li>
+<li>works with test/spec and class method stubbing
+
+</li>
+<li>works with test/spec and global instance method stubbing
+
+</li>
+</ul>
+<h2>Outer context</h2>
+<h3>Inner context</h3>
+<ul>
+<li>is nested
+
+</li>
+<li>has multiple empty specifications
+
+</li>
+</ul>
+<h3>Second Inner context</h3>
+<ul>
+<li>is indented properly
+
+</li>
+<li>still runs in order of definition
+
+</li>
+</ul>
+<h4>Inmost context</h4>
+<ul>
+<li>works too!
+
+</li>
+<li>whoo!
+
+</li>
+</ul>
+<h2>should.output</h2>
+<ul>
+<li>works for print
+
+</li>
+<li>works for puts
+
+</li>
+<li>works with readline
+
+</li>
+</ul>
+<h2>test/spec</h2>
+<ul>
+<li>has should.satisfy
+
+</li>
+<li>has should.equal
+
+</li>
+<li>has should.raise
+
+</li>
+<li>should.raise should return the exception
+
+</li>
+<li>has should.be.an.instance_of
+
+</li>
+<li>has should.be.nil
+
+</li>
+<li>has should.include
+
+</li>
+<li>has should.be.a.kind_of
+
+</li>
+<li>has should.match
+
+</li>
+<li>has should.be
+
+</li>
+<li>has should.not.raise
+
+</li>
+<li>has should.not.satisfy
+
+</li>
+<li>has should.not.be
+
+</li>
+<li>has should.not.equal
+
+</li>
+<li>has should.not.match
+
+</li>
+<li>has should.throw
+
+</li>
+<li>has should.not.throw
+
+</li>
+<li>has should.respond_to
+
+</li>
+<li>has should.be_close
+
+</li>
+<li>multiple negation works
+
+</li>
+<li>has should.&lt;predicate&gt;
+
+</li>
+<li>has should &lt;operator&gt; (&gt;, &gt;=, &lt;, &lt;=, ===)
+
+</li>
+<li>is robust against careless users
+
+</li>
+<li>should detect warnings
+
+</li>
+<li>should message/blame faults
+
+</li>
+<li>should allow for custom shoulds
+
+</li>
+<li>disabled specification (disabled)
+
+</li>
+</ul>
+<h3>more disabled</h3>
+<ul>
+<li>this is intentional (disabled)
+
+</li>
+</ul>
+<h2>setup/teardown</h2>
+<ul>
+<li>run in the right order
+
+</li>
+</ul>
+<h2>contexts</h2>
+<ul>
+<li>are defined in class scope
+
+</li>
+<li>can include modules
+
+</li>
+</ul>
+<h2>Context First</h2>
+<ul>
+<li>runs before Second
+
+</li>
+</ul>
+<h2>Context Second</h2>
+<ul>
+<li>runs before Last
+
+</li>
+</ul>
+<h2>Context Last</h2>
+<ul>
+<li>runs last
+
+</li>
+</ul>
+<p>
+76 specifications, 2 disabled (414 requirements), 0 failures
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
