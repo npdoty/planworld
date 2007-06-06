@@ -1,5 +1,13 @@
 *SVN*
 
+* Fixtures: correctly delete and insert fixtures in a single transaction.  #8553 [Michael Schuerig]
+
+* Fixtures: people(:technomancy, :josh) returns both fixtures.  #7880 [technomancy, Josh Peek]
+
+* Calculations support non-numeric foreign keys.  #8154 [kamal]
+
+* with_scope is protected.  #8524 [Josh Peek]
+
 * Quickref for association methods.  #7723 [marclove, Mindsweeper]
 
 * Calculations: return nil average instead of 0 when there are no rows to average.  #8298 [davidw]
