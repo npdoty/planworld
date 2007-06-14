@@ -1,0 +1,2 @@
+require 'candy'
+require 'rails'
