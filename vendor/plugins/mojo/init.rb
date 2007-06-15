@@ -1,4 +1,5 @@
 require 'mojodna/attachment_migration'
+require 'mojodna/date_time'
 require 'mojodna/required_attributes'
 require 'mojodna/labeled_form_helper'
 ActionView::Base.send                 :include, MojoDNA::LabeledFormHelper
