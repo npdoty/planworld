@@ -1,2 +1,6 @@
-Use this README file to introduce your application and point to useful places in the API for learning more.
-Run "rake appdoc" to generate API documentation for your models and controllers.
+Facebook Featureset
+- single wiki-style textarea ("plan")
+- snitch (always on or opt-in?  i think opt-in doesn't have a place here because there are existing ways to communicate w/o this dynamic)
+- snoop (?  with optional message notifications)
+- private to networks (later can specify which networks)
+- implicit planwatch using friends (can be expanded later)
