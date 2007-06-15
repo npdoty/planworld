@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title><%= @title %></title>
+<%= stylesheet_link_tag "#{@theme.dir}/styles.css", :title => @theme.name %>
+<% for theme in themes do %>
+  <%= stylesheet_link_tag "themes/#{theme.dir}/styles.css", :rel => "alternate stylesheet", :title => theme.name %>
+<% end %>
+<script type="text/javascript">
+function confirmDelete() {
+  return confirm("Are you sure you wish to clear your plan?");
+}
+function confirmLogout() {
+  return confirm("Are you sure you wish to leave planworld?");
+}
+function send (u) {
+  window.open('<?php echo PW_URL_BASE; ?>send/' + u + '#form', 'send', 'width=450,height=400,location=no,menubar=no,toolbar=no,status=no,scrollbars=yes');
+  return false;
+}
+</script>
+<!-- script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-66841-3";
+urchinTracker();
+</script -->
+</head>
+
+<body>
+<%= @theme.extras %>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr>
+    <td valign="top" class="border">
+      <!-- border table -->
+      <table width="100%" cellspacing="1" cellpadding="0" border="0">
+        <tr>
+          <% form_tag do %>
+            <td colspan="2" height="50" valign="top" class="header">
+              <table width="100%" cellpadding="2" cellspacing="0">
+                <tr>
+                  <td align="left" valign="bottom">
+                    <br />
+                    <%= link_to(image_tag("default/planworld.gif", :alt => "planworld", :border => 0), home_path, :title => "planworld") %>
+                  </td>
+                  <td valign="bottom" align="right">
+                    <%= text_field_tag :username, "", :size => 12, :class => "inputTextBox" %>&nbsp;<%= submit_tag("Finger", :class => "inputButton") %>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          <% end %>
+        </tr>
+        <tr>
+          <td colspan="2" height="20" align="left" class="navbar">
+            <%= render :partial => "layouts/navbar" %>
+          </td>
+        </tr>
+        <tr>
+          <td width="160" valign="top" align="left" class="planwatch">
+            <%= image_tag("ghost.gif", :size => "160x1", :alt => 1) %><br />
+            <%= render :partial => "shared/planwatch" %>
+          </td>
+          <td width="100%" valign="top" class="content">
+            <table width="100%" cellpadding="5" cellspacing="0">
+              <tr>
+                <td valign="top">
+                  <%= yield %>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" align="center" class="trailer">
+            <%= render :partial => "layouts/footer" %>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="navbar">
+      &nbsp;
+      <%= link_to("Home",        home_path, :class => "navbar", :title => "Home") %> |
+      <%= link_to("Look",        home_path, :class => "navbar", :title => "Look") %> |
+      <%= link_to("Stats",       home_path, :class => "navbar", :title => "Statistics") %> |
+      <%= link_to("Snitch",      home_path, :class => "navbar", :title => "Snitch") %> |
+      <%= link_to("Snoop",       home_path, :class => "navbar", :title => "Snoop") %> |
+      <%= link_to("Preferences", home_path, :class => "navbar", :title => "Preferences") %> |
+      <%= link_to("FAQ",         home_path, :class => "navbar", :title => "Frequently Asked Questions") %> |
+      <%= link_to("About",       home_path, :class => "navbar", :title => "About Planworld") %>
+      <%= "|" + link_to("Admin", home_path, :class => "navbar", :title => "Planworld Administrator Functions") if current_user.admin? %>
+    </td>
+  <td align="right" class="navbar">
+    <%= h(current_user.username) %>: <%= link_to("View", finger_path(:username => current_user), :class => "navbar", :title => "View your plan") %> |
+    <%= link_to("Edit",     home_path, :class => "navbar", :title => "Edit your plan") %> |
+    <%= link_to("Archives", home_path, :class => "navbar", :title => "View your archives") %> |
+    <%= link_to("Delete",   home_path, :class => "navbar", :title => "Clear your plan", :onclick => "return confirmDelete();") %> |
+    <%= link_to("Logout",   logout_path, :class => "navbar", :title => "Log out of planworld") %>
+    &nbsp;
+  </td>
+  </tr>
+</table>

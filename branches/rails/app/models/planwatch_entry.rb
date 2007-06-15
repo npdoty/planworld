@@ -19,4 +19,8 @@ class PlanwatchEntry < ActiveRecord::Base
   def after_initialize
     self.planwatch_group_id = 1 unless planwatch_group_id
   end
+  
+  def new?
+    !watched_user.last_updated_at.nil? && watched_user.last_updated_at > last_viewed_at
+  end
 end

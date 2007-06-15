@@ -17,7 +17,12 @@ ActionController::Routing::Routes.draw do |map|
   # instead of a file named 'wsdl'
   map.connect ':controller/service.wsdl', :action => 'wsdl'
 
-  map.resources :plans, :sessions
+  map.finger "finger/:username", :controller => "core", :action => "finger"
+  map.home   "", :controller => "core"
+
+  map.resources :plans
+  map.resources :sessions,
+                :collection => { :logout => :get }
   map.resources :logged_exceptions
 
   # Install the default route as the lowest priority.

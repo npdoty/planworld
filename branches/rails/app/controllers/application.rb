@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   include ExceptionLoggable
 
   # "remember me" functionality and threadlocal access
-  before_filter :login_from_cookie, :set_current_user
+  before_filter :login_from_cookie, :set_current_user, :set_active_theme
   after_filter :clear_current_user
 
   # Pick a unique cookie name to distinguish our session data from others'
@@ -17,6 +17,10 @@ private
   # Clear the current_user threadlocal after each request to avoid leakage.
   def clear_current_user
     User.current_user = nil
+  end
+
+  def set_active_theme
+    @theme = Theme.find(1)
   end
 
   # Set the current_user threadlocal to the current user.

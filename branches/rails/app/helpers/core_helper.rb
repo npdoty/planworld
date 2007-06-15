@@ -1,0 +1,2 @@
+module CoreHelper
+end

@@ -25,4 +25,35 @@ class User < ActiveRecord::Base
   extend PlanworldNetAuthentication
   
   has_one :plan
+  has_many :planwatch, :class_name => "PlanwatchGroup", :finder_sql =>
+        'SELECT planwatch_groups.* ' +
+        'FROM planwatch_groups ' +
+        'WHERE user_id = #{id} OR user_id=0 ' +
+        'ORDER BY user_id, name ASC' do
+    def count
+      PlanwatchEntry.count(:conditions => ["planwatch_entries.user_id=?", User.current_user.id])
+    end
+
+    def unread_count
+      PlanwatchEntry.count(:conditions => ["planwatch_entries.user_id=? AND users.last_updated_at > planwatch_entries.last_viewed_at", User.current_user.id], :joins => "LEFT JOIN users ON users.id=planwatch_entries.watched_user_id")
+    end
+  end
+        
+  has_many :planwatch2, :class_name => "PlanwatchGroup", :order => "name ASC", :foreign_key => "user_id" do
+    def count
+      PlanwatchEntry.count(:conditions => ["planwatch_entries.user_id=?", User.current_user.id])
+    end
+    
+    def unread_count
+      PlanwatchEntry.count(:conditions => ["planwatch_entries.user_id=? AND users.last_updated_at > planwatch_entries.last_viewed_at", User.current_user.id], :joins => "LEFT JOIN users ON users.id=planwatch_entries.watched_user_id")
+    end
+  end
+  
+  def admin?
+    false
+  end
+  
+  def to_param
+    username
+  end
 end

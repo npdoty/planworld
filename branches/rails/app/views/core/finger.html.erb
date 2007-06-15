@@ -1,0 +1,6 @@
+<tt>(Remove from my planwatch)<br />
+Login name: <%= h(@user.username) %> (send)<br />
+Last login: <%= format_date(@user.last_logged_in_at) %><br />
+Last updated: <%= format_date(@user.last_updated_at) %><br />
+Plan:</tt>
+<%= word_wrap(@plan.body, 76) %>
