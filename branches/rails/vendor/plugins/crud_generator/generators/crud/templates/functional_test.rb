@@ -29,7 +29,7 @@ class <%= controller_class_name %>ControllerTest < Test::Unit::TestCase
   
   def test_should_create_<%= file_name %>
     assert_requires_login(:quentin) do |c|
-      assert_difference <%= class_name %>, :count do
+      assert_difference "<%= class_name %>.count" do
         c.post :create, :<%= file_name %> => <%= file_name %>_attributes
       end
     
@@ -70,7 +70,7 @@ class <%= controller_class_name %>ControllerTest < Test::Unit::TestCase
   
   def test_should_destroy_<%= file_name %>
     assert_requires_login(:quentin) do |c|
-      assert_difference <%= class_name %>, :count, -1 do
+      assert_difference "<%= class_name %>.count", -1 do
         c.post :destroy, :id => <%= table_name %>(:first).id
       end
     
