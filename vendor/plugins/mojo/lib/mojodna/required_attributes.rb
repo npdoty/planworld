@@ -16,11 +16,14 @@ module MojoDNA
     end
     
     module ClassMethods
+      @@required_attributes ||= {}
+
       def requires?(attr_name)
         required_attributes.include?(attr_name)
       end
       
       def required_attributes(on = :save)
+        @@required_attributes[on] ||= []
         @@required_attributes[on]
       end
     
