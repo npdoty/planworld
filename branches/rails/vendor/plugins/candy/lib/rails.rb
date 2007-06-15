@@ -94,14 +94,6 @@ class ActionView::Base
     end
   end
   alias_method_chain :render, :auto_detection
-
-  def dom_id(record)
-    "#{record.class.base_class.to_s.underscore}_#{record.id}"
-  end
-  
-  def dom_class(record)
-    "#{record.class.base_class.to_s.underscore}"
-  end
 end
 
 ##
