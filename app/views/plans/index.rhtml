@@ -1,0 +1,20 @@
+<h1>Plans</h1>
+
+<% unless @plans.empty? %>
+<table id="plans" class="index" border="0" cellpadding="0" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Body</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render :partial => @plans %>
+  </tbody>
+</table>
+<%= ruled_table 'plans' %>
+<% else %>
+  <p>No Plans</p>
+<% end %>
+
+<p><%= link_to 'New Plan', new_plan_url %></p>

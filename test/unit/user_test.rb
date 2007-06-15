@@ -73,7 +73,7 @@ context "A User (in general)" do
     @user.last_logged_in_at.should.not.be.nil
   end
   
-  xspecify "should have a Plan" do
+  specify "should have a Plan" do
     User.should.have_association :plan
   end
 end

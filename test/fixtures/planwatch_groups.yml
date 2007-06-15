@@ -1,0 +1,16 @@
+# == Schema Information
+#
+# Table name: planwatch_groups
+#
+#  id         :integer(11)   not null, primary key
+#  user_id    :integer(11)   
+#  name       :string(255)   
+#  position   :integer(11)   
+#  updated_at :datetime      
+#  created_at :datetime      
+#
+
+first:
+  id: 1
+  created_at: <%= 3.days.ago.to_s(:db) %>
+  updated_at: <%= 3.days.ago.to_s(:db) %>
