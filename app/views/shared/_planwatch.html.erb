@@ -1,0 +1,39 @@
+<table width="100%" cellpadding="5" cellspacing="0">
+  <tr>
+    <td class="planwatch">
+      <table width="100%" cellspacing="0" cellpadding="0">
+        <tr>
+          <td align="left">
+            <%= link_to("planwatch", home_path, :class => "subtitle", :title => "Edit your planwatch") %>
+          </td>
+          <td align="right" valign="top">
+            <%= link_to(content_tag(:span, "EDIT", :class => "small"), home_path) %>
+          </td>
+        </tr>
+      </table>
+      (<%= pluralize(current_user.planwatch.count, "person") %>, <%= current_user.planwatch.unread_count %> new)
+      <hr size="1" noshade="noshade" />
+    </td>
+  </tr>
+  <tr>
+    <td class="planwatch">
+      <!-- Stalkernet and Send messages -->
+      <% unless current_user.planwatch.empty? %>
+        <% current_user.planwatch.each do |group| %>
+          <strong><u><%= h(group.name) %></u></strong><br />
+          <% group.planwatch_entries.each do |planwatch_entry| %>
+            <%= content_tag(:span, "NEW", :class => "new") if planwatch_entry.new? %>
+            <%= planwatch_link(planwatch_entry) %>
+            (<%= format_planwatch_date(planwatch_entry) %>)
+            <br />
+          <% end %>
+          <br />
+        <% end %>
+      <% else %>
+        You are currently watching no plans.<br />
+        <%= link_to("Edit your planwatch", home_path, :title => "Edit your planwatch") %>
+      <% end %>
+      <!-- Snoop references -->
+    </td>
+  </tr>
+</table>

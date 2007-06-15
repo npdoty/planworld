@@ -18,7 +18,7 @@ context "A PlanwatchGroup (in general)" do
   end
 
   specify "should have many PlanwatchEntries" do
-    PlanwatchGroup.should.have_association :planwatch_entries
+    @planwatch_group.should.respond_to :planwatch_entries
   end
 
   specify "should have many watched Users" do

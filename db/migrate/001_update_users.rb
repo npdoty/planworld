@@ -11,6 +11,7 @@ class UpdateUsers < ActiveRecord::Migration
     add_column :users, :new_archive, :string
     add_column :users, :new_snitch_activated, :datetime
     add_column :users, :new_last_login,  :datetime
+    add_column :users, :last_updated_at, :datetime
     add_column :users, :created_at, :datetime
     add_column :users, :updated_at, :datetime
 
@@ -23,7 +24,7 @@ class UpdateUsers < ActiveRecord::Migration
       
       user.new_snitch_activated = Time.at(user.snitch_activated)
       user.new_last_login       = Time.at(user.last_login)
-      user.updated_at           = Time.at(user.last_update)
+      user.last_updated_at      = Time.at(user.last_update)
       user.created_at           = Time.at(user.first_login) if user.first_login
       user.save!
     end
@@ -43,6 +44,11 @@ class UpdateUsers < ActiveRecord::Migration
     rename_column :users, :new_archive, :default_archive_settings
     rename_column :users, :new_snitch_activated, :snitch_activated_at
     rename_column :users, :new_last_login,  :last_logged_in_at
+    
+    execute "update users set snitch_activated_at = NULL where snitch_activated_at = FROM_UNIXTIME(0)"
+    execute "update users set last_logged_in_at = NULL where last_logged_in_at = FROM_UNIXTIME(0)"
+    execute "update users set last_updated_at = NULL where last_updated_at = FROM_UNIXTIME(0)"
+    execute "update users set created_at = NULL where created_at = FROM_UNIXTIME(0)"
   end
 
   def self.down

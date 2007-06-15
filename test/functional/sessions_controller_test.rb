@@ -5,7 +5,7 @@ require 'sessions_controller'
 class SessionsController; def rescue_action(e) raise e end; end
 
 class SessionsControllerTest < Test::Unit::TestCase
-  fixtures :account_data, :users
+  fixtures :account_data, :themes, :users
 
   def setup
     @controller = SessionsController.new

@@ -76,6 +76,10 @@ context "A User (in general)" do
   specify "should have a Plan" do
     User.should.have_association :plan
   end
+  
+  specify "should have a planwatch (list of PlanwatchGroups)" do
+    User.should.have_association :planwatch
+  end
 end
 
 context "A new User" do
