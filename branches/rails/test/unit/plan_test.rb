@@ -17,7 +17,7 @@ context "A Plan (in general)" do
     @plan.body.should.not.be.nil
   end
   
-  xspecify "should belong to a User" do
+  specify "should belong to a User" do
     Plan.should.have_association :user
   end
 end

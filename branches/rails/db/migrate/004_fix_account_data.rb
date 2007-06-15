@@ -1,10 +1,11 @@
 class FixAccountData < ActiveRecord::Migration
   def self.up
     rename_table :AccountData, :account_data
+    add_column   :account_data, :user_id, :integer
     add_column   :account_data, :new_sex, :string, :limit => 1
     add_column   :account_data, :new_confirmed, :boolean
     
-    
+    execute "UPDATE account_data, users SET account_data.user_id = users.id WHERE users.username = account_data.Username"
     execute "UPDATE account_data SET new_sex=sex, new_confirmed=if(confirmed = 'Y', 1, 0)"
     
     remove_column :account_data, :sex

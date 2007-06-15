@@ -1,0 +1,9 @@
+<h1>Show Plan</h1>
+
+<% content_tag_for :dl, @plan do -%>
+  <dt><label for="plan_body">Body</label></dt>
+  <dd><%= h(@plan.body) %></dd>
+
+<% end %>
+
+<p><%= link_to 'edit', edit_plan_url(@plan) %> | <%= link_to 'back', plans_url %></p>

@@ -30,3 +30,23 @@ first:
   last_logged_in_at: <%= 1.day.ago.to_s(:db) %>
   created_at: <%= 3.days.ago.to_s(:db) %>
   updated_at: <%= 2.days.ago.to_s(:db) %>
+
+quentin:
+  id: 2
+  username: quentin
+  snitch_enabled: true
+  default_archive_settings: P
+  snitch_activated_at: <%= 2.days.ago.to_s(:db) %>
+  last_logged_in_at: <%= 1.day.ago.to_s(:db) %>
+  created_at: <%= 3.days.ago.to_s(:db) %>
+  updated_at: <%= 2.days.ago.to_s(:db) %>
+
+legacy:
+  id: 3
+  username: legacy
+  snitch_enabled: true
+  default_archive_settings: P
+  snitch_activated_at: <%= 2.days.ago.to_s(:db) %>
+  last_logged_in_at: <%= 1.day.ago.to_s(:db) %>
+  created_at: <%= 3.days.ago.to_s(:db) %>
+  updated_at: <%= 2.days.ago.to_s(:db) %>

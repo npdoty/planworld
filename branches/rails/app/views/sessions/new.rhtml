@@ -1,0 +1,24 @@
+<div class="login">
+<% form_tag sessions_path do -%>
+<ol>
+  <li>
+    <label for="username">Login</label>
+    <%= text_field_tag 'username' %>
+  </li>
+
+  <li>
+    <label for="password">Password</label>
+    <%= password_field_tag 'password' %>
+  </li>
+
+  <li>
+    <label for="remember_me">Remember me:</label>
+    <%= check_box_tag 'remember_me' %>
+  </li>
+
+  <li>
+    <%= submit_tag 'Log in', :id => "login" %>
+  </li>
+</ol>
+<% end -%>
+</div>

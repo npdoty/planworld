@@ -31,10 +31,17 @@ Test::Spec::Should.class_eval do
   def have_association(association)
     assert @object.has_association?(association)
   end
+  
+  def act_as_a_list
+    @object.should.respond_to :move_higher
+    @object.should.respond_to :move_lower
+    @object.should.respond_to :move_to_bottom
+    @object.should.respond_to :move_to_top
+  end
 end
 
 class Test::Unit::TestCase
-#  include AuthenticatedTestHelper
+  include AuthenticatedTestHelper
   
   # Transactional fixtures accelerate your tests by wrapping each test method
   # in a transaction that's rolled back on completion.  This ensures that the

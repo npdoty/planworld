@@ -1,0 +1,6 @@
+<% labeled_form_for plan do |f| %>
+  <%= error_messages_for :plan %>
+          <%= f.text_area :body %>
+  
+    <div class="submit"><%= create_or_update_submit_tag(plan) %> or <%= cancel_link %></div>
+<% end %>
